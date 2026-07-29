@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="UZX Esports - Equipo competitivo de Free Fire LATAM. Conoce nuestro roster, estadísticas y resultados." />
+  <title>UZX Esports</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/recruitment.css" />
+  <link rel="stylesheet" href="css/mobile-fixes.css" />
+  <link rel="stylesheet" href="css/mobile-players.css" />
+  <link rel="stylesheet" href="css/mobile-mapPerformance.css" />
+  <link rel="stylesheet" href="css/mobile-scrimDetail.css" />
+  <link rel="stylesheet" href="css/mobile-scrimCard.css" />
+</head>
+<body class="squad-oficial">
+
+  <!-- ═══ WAKE-UP SCREEN ═══ -->
+<!-- ═══ WAKE-UP SCREEN ═══ -->
+<div class="wakeup-screen" id="wakeup-screen">
+  <div class="wakeup-bg-slideshow" id="wakeup-bg-slideshow"></div>
+  <div class="wakeup-overlay"></div>
+  <div class="wakeup-content">
+    <div class="wakeup-logo-wrap">
+      <img class="wakeup-logo" src="assets/logo-oficial.png" alt="UZX Logo" id="wakeup-logo-img" />
+      <div class="wakeup-logo-pulse"></div>
+    </div>
+    <div class="wakeup-brand">
+      <span class="wakeup-brand-uzx">UZX</span>
+      <span class="wakeup-brand-divider"></span>
+      <span class="wakeup-brand-esports">ESPORTS</span>
+    </div>
+    <div class="wakeup-subtitle">Free Fire · LATAM</div>
+    <div class="wakeup-loader">
+      <div class="wakeup-loader-track">
+        <div class="wakeup-loader-fill"></div>
+      </div>
+    </div>
+    <div class="wakeup-status" id="wakeup-status">Conectando al servidor...</div>
+    <div class="wakeup-tip" id="wakeup-tip"></div>
+  </div>
+</div>
+
+  <!-- ═══ APP ═══ -->
+  <div id="app" style="display:none">
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar"></nav>
+
+    <!-- Main Content -->
+    <main id="content"></main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- ═══ SCRIM DETAIL OVERLAY ═══ -->
+  <div class="scrim-detail-overlay" id="scrim-detail-overlay">
+    <div class="scrim-detail-box">
+      <div class="scrim-detail-header">
+        <div>
+          <div class="scrim-detail-title" id="scrim-detail-title"></div>
+          <div class="scrim-detail-meta" id="scrim-detail-meta"></div>
+        </div>
+        <button class="scrim-detail-close" onclick="App.closeScrimDetail()" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div class="scrim-detail-body" id="scrim-detail-body"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

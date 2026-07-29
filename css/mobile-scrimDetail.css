@@ -1,0 +1,324 @@
+/* ═══════════════════════════════════════════════
+   MOBILE - SCRIM DETAIL (v2)
+   Optimizado para pantallas pequeñas
+   Fixes:
+   1) Stat cards MVP en 1 sola fila (1x4), no 2x2
+   2) Tabla de jugadores: headers y valores comparten
+      EXACTAMENTE el mismo grid (mismo selector, mismo
+      min-width, mismo gap) => quedan alineados
+   3) Banner de mapa: nombre a la izquierda, posición+kills
+      a la derecha, todo en una sola fila
+   4) Card MVP más grande, usando el ancho disponible
+══════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+    /* ── MVP Section ── */
+    .mvp-section-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+    }
+
+    /* Card MVP más grande, usa el ancho disponible en vez de achicarse */
+    .mvp-card-pro {
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+    }
+
+    .mvp-squad-label-top {
+      font-size: 0.68rem !important;
+      margin-bottom: 0.4rem !important;
+    }
+
+    .mvp-name-overlay-onphoto {
+      font-size: 1.3rem !important;
+      bottom: 2% !important;
+    }
+
+    .mvp-stat-num-overlay {
+      font-size: 1.4rem !important;
+    }
+
+    /* ── Stats grid: 1x4, una sola fila ── */
+    .sd-summary-stats {
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 0.4rem !important;
+    }
+
+    .mvp-gstat-card {
+      aspect-ratio: auto !important;
+      /*min-height: 64px !important;*/
+      padding: 0.3rem 0.2rem !important;
+    }
+
+    .mvp-gstat-label {
+      font-size: 0.42rem !important;
+    }
+
+    .mvp-gstat-val {
+      font-size: 0.85rem !important;
+    }
+
+    /* Chart card */
+    .sd-chart-card {
+      min-height: 220px !important;
+      padding: 0.6rem !important;
+    }
+
+    .sd-chart-legend {
+      gap: 0.75rem !important;
+      margin-bottom: 0.3rem !important;
+    }
+
+    .sd-chart-legend-item {
+      font-size: 0.6rem !important;
+    }
+
+    /* ── ROOMS: nombre de mapa + posición + kills en UNA sola fila ── */
+    .sd-room-banner {
+      padding: 0.75rem 1rem !important;
+      min-height: auto !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 0.5rem !important;
+    }
+
+    .sd-room-name {
+      font-size: 0.85rem !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .sd-room-banner-right {
+      width: auto !important;
+      flex-shrink: 0 !important;
+      justify-content: flex-end !important;
+    }
+
+    .sd-room-chip {
+      padding: 0.2rem 0.45rem !important;
+      min-width: auto !important;
+    }
+
+    .sd-room-chip-pos {
+      font-size: 0.8rem !important;
+    }
+
+    .sd-room-chip-val {
+      font-size: 0.8rem !important;
+    }
+
+    .sd-room-chip-lbl {
+      font-size: 0.42rem !important;
+    }
+
+    .sd-room-chip-total {
+      font-size: 0.48rem !important;
+    }
+
+    /* ── PLAYER TABLE — head y row usan EXACTAMENTE el mismo
+       template de columnas para que queden alineados ── */
+
+    .sd-player-rows {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .sd-player-rows-head,
+    .sd-player-row {
+      display: grid !important;
+      grid-template-columns:
+        110px
+        60px
+        60px
+        70px
+        70px
+        60px
+        60px !important;
+      width: max-content !important;
+      min-width: 100% !important;
+      gap: 0 !important;
+      padding: 0.6rem 0.75rem !important;
+      box-sizing: border-box !important;
+    }
+
+    .sd-player-rows-head > *,
+    .sd-player-row > * {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      min-width: 0 !important;
+    }
+
+    .sd-player-rows-head .col-name,
+    .sd-player-row .col-name {
+      justify-content: flex-start !important;
+      text-align: left !important;
+    }
+
+    .sd-player-row {
+      border-bottom: 1px solid var(--border) !important;
+    }
+
+    .sd-player-row:last-child {
+      border-bottom: none !important;
+    }
+
+    .sd-player-rows-head {
+      font-size: 0.56rem !important;
+      white-space: nowrap !important;
+    }
+
+    /* Player name section: foto + nombre en línea, como en PC */
+    .sd-player-row .col-name {
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 0.45rem !important;
+      padding-bottom: 0 !important;
+      border-bottom: none !important;
+      margin-bottom: 0 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+    }
+
+    .sd-player-avatar-img {
+      width: 26px !important;
+      height: 26px !important;
+      flex-shrink: 0 !important;
+    }
+
+    .sd-player-avatar-fallback {
+      width: 26px !important;
+      height: 26px !important;
+      font-size: 0.7rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .sd-player-name {
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
+    .sd-player-row .col-num {
+      font-size: 0.75rem !important;
+    }
+
+    /* Performance pill */
+    .perf-pill {
+      font-size: 0.68rem !important;
+      padding: 0.15rem 0.4rem !important;
+      white-space: nowrap !important;
+    }
+
+    /* ── OVERLAY & CONTAINER ── */
+    .scrim-detail-overlay {
+      padding: 0.5rem !important;
+    }
+
+    .scrim-detail-box {
+      max-height: 95vh !important;
+      border-radius: var(--radius-lg) !important;
+    }
+
+    .scrim-detail-header {
+      padding: 1rem !important;
+    }
+
+    .scrim-detail-title {
+      font-size: 1.05rem !important;
+    }
+
+    .scrim-detail-meta {
+      font-size: 0.7rem !important;
+    }
+
+    .scrim-detail-body {
+      padding: 1rem !important;
+    }
+
+    /* Note text */
+    .scrim-detail-body > div:first-child {
+      font-size: 0.75rem !important;
+      padding: 0 0.5rem 0rem !important;
+    }
+
+    /* Loading state */
+    .loading-pulse {
+      padding: 2rem 1rem !important;
+      font-size: 0.8rem !important;
+    }
+}
+
+/* ── EXTRA SMALL MOBILE ── */
+@media (max-width: 420px) {
+    .mvp-name-overlay-onphoto {
+      font-size: 1.1rem !important;
+    }
+
+    .mvp-stat-num-overlay {
+      font-size: 1.15rem !important;
+    }
+
+    .sd-summary-stats {
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 0.3rem !important;
+    }
+
+    .mvp-gstat-card {
+      min-height: 56px !important;
+    }
+
+    .mvp-gstat-val {
+      font-size: 0.72rem !important;
+    }
+
+    .mvp-gstat-label {
+      font-size: 0.38rem !important;
+    }
+
+    .sd-room-chip {
+      padding: 0.2rem 0.4rem !important;
+    }
+
+    .sd-room-chip-lbl {
+      display: none !important;
+    }
+
+    .sd-player-rows-head,
+    .sd-player-row {
+      grid-template-columns:
+        96px
+        54px
+        54px
+        62px
+        62px
+        54px
+        54px !important;
+    }
+
+    .sd-player-row .col-num {
+      font-size: 0.7rem !important;
+    }
+
+    .sd-player-name {
+      font-size: 0.78rem !important;
+    }
+}
+
+/* ── LANDSCAPE MOBILE ── */
+@media (max-width: 768px) and (orientation: landscape) {
+    .scrim-detail-box {
+      max-height: 90vh !important;
+    }
+
+    .sd-chart-card {
+      min-height: 180px !important;
+    }
+}

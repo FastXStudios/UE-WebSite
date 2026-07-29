@@ -1,0 +1,446 @@
+/* ═══════════════════════════════════════════════
+   MOBILE - SCRIM CARD / JORNADAS
+   Optimizado para pantallas pequeñas
+   1) Rendimiento por Mapa: grid 2x2 (no apilado en 1 columna)
+   2) Barra de filtros: todo en una sola fila, compacto
+   3) Scrim cards: recalibradas, el collage de mapas ya no
+      se ve encogido frente al resto del contenido
+══════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+    /* ═══════════════════════════════════════
+       1) RENDIMIENTO POR MAPA — grid 2x2
+       (compactado a fondo para que nombre/partidas/% no se corten)
+
+       🔥 FIX: el HTML real tiene un div#scrims-map-performance que
+       YA trae la clase .mp-overview-grid como wrapper, y ADENTRO
+       renderiza otro div.mp-overview-grid con las 4 mp-map-card
+       reales. Si le pongo "repeat(2,1fr)" a .mp-overview-grid a
+       secas, la regla pega en AMBOS (el de afuera y el de adentro):
+       el de afuera se vuelve grid de 2 columnas y mete todo el
+       contenido (que ya es un grid) dentro de su celda 1, dejando
+       la celda 2 vacía — exactamente el bug de la captura.
+
+       Solución: sacar el 2x2 del wrapper exterior (que solo debe
+       comportarse como bloque normal) y aplicarlo SOLO al grid
+       interno real, seleccionándolo como
+       "#scrims-map-performance > .mp-overview-grid".
+    ═══════════════════════════════════════ */
+
+    /* El wrapper exterior deja de ser grid: es solo un contenedor */
+    #scrims-map-performance.mp-overview-grid {
+      display: block !important;
+    }
+
+    /* El grid real (el que contiene las 4 mp-map-card) SÍ es 2x2.
+       Cubrimos ambos casos: si hay doble anidamiento (wrapper +
+       grid interno) o si en algún momento solo existe un nivel. */
+    #scrims-map-performance > .mp-overview-grid,
+    .mp-overview-grid .mp-overview-grid,
+    #scrims-map-performance:not(:has(.mp-overview-grid)) {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.5rem !important;
+    }
+
+    .mp-map-card {
+      border-radius: var(--radius) !important;
+      min-width: 0 !important;
+    }
+
+    .mp-map-banner {
+      height: 64px !important;
+    }
+
+    .mp-map-label {
+      padding: 0.35rem 0.4rem !important;
+    }
+
+    .mp-map-name {
+      font-size: 0.64rem !important;
+      letter-spacing: 0.2px !important;
+    }
+
+    .mp-map-count {
+      font-size: 0.5rem !important;
+      padding: 0.1rem 0.3rem !important;
+      gap: 0.15rem !important;
+    }
+
+    .mp-rank-list {
+      padding: 0.15rem 0 !important;
+    }
+
+    /* Fila de ranking: grid explícito para que el nombre se trunque
+       con ellipsis en vez de empujar el % fuera de la card */
+    .mp-rank-row {
+      display: grid !important;
+      grid-template-columns: 14px 22px 1fr auto !important;
+      align-items: center !important;
+      gap: 0.3rem !important;
+      padding: 0.32rem 0.4rem !important;
+    }
+
+    .mp-rank-pos {
+      font-size: 0.62rem !important;
+      min-width: 0 !important;
+    }
+
+    .mp-rank-avatar,
+    .mp-rank-avatar-img,
+    .mp-rank-avatar-fallback {
+      width: 22px !important;
+      height: 22px !important;
+      font-size: 0.58rem !important;
+    }
+
+    .mp-rank-name {
+      min-width: 0 !important;
+      font-size: 0.62rem !important;
+      line-height: 1.15 !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
+    .mp-rank-games {
+      font-size: 0.52rem !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
+    .mp-rank-score {
+      margin-left: 0 !important;
+      font-size: 0.66rem !important;
+      white-space: nowrap !important;
+    }
+
+    /* ═══════════════════════════════════════
+       2) BARRA DE FILTROS — todo en una fila
+    ═══════════════════════════════════════ */
+    .scrims-filter-bar {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      gap: 0.4rem !important;
+      padding: 0.6rem 0.65rem !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .filter-group {
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      gap: 0.35rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Ocultamos el ícono decorativo y el <label> de texto para ganar espacio;
+       el placeholder / opción ya comunica qué es cada control */
+    .filter-icon {
+      display: none !important;
+    }
+
+    .filter-group label {
+      display: none !important;
+    }
+
+    .filter-input,
+    .filter-select {
+      padding: 0.4rem 0.5rem !important;
+      font-size: 0.72rem !important;
+      max-width: 118px !important;
+    }
+
+    .filter-clear-btn {
+      padding: 0.4rem 0.6rem !important;
+      font-size: 0.68rem !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+    }
+
+    .filter-clear-btn svg {
+      width: 12px !important;
+      height: 12px !important;
+    }
+
+    /* ═══════════════════════════════════════
+       3) SCRIM CARDS — layout tipo desktop
+       Usamos CSS GRID explícito con áreas nombradas en vez de
+       flex-wrap (que se rompía y dejaba huecos vacíos). Así cada
+       pieza va exactamente donde debe ir, sin adivinar wraps.
+
+       Grid de 2 columnas:
+         date   | title........... | mapas
+         date   | meta............ | (vacío)
+         date   | mvp.............. | kills-rend
+         collage (ancho completo, toda la fila de abajo)
+    ═══════════════════════════════════════ */
+    .scrims-list {
+      gap: 0.75rem !important;
+    }
+
+    .scrim-card {
+      display: grid !important;
+      grid-template-columns: 50px 1fr auto !important;
+      grid-template-rows: auto auto auto auto !important;
+      grid-template-areas:
+        "date title  mapas"
+        "date meta   meta"
+        "date mvp    stats"
+        "collage collage collage" !important;
+      column-gap: 0.65rem !important;
+      row-gap: 0.15rem !important;
+      padding: 0.85rem !important;
+    }
+
+    /* .scrim-card-left y .scrim-card-right dejan de ser contenedores
+       visuales propios; sus hijos se ubican directo en el grid del
+       padre via grid-area (contents = "desaparecen" del layout) */
+    .scrim-card-left,
+    .scrim-card-right {
+      display: contents !important;
+    }
+
+    .scrim-date-box {
+      grid-area: date !important;
+      width: 50px !important;
+      height: 64px !important;
+      border-radius: 8px !important;
+    }
+
+    .scrim-date-day {
+      font-size: 1.2rem !important;
+    }
+
+    .scrim-date-mon {
+      font-size: 0.55rem !important;
+    }
+
+    .scrim-date-yr {
+      font-size: 0.48rem !important;
+    }
+
+    /* .scrim-info en sí también "desaparece": sus 3 hijos
+       (title, meta-row, mvp-row) van cada uno a su propia celda */
+    .scrim-info {
+      display: contents !important;
+    }
+
+    .scrim-title {
+      grid-area: title !important;
+      align-self: center !important;
+      font-size: 0.85rem !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
+    /* 🔥 FIX: .scrim-meta-row es un flex container normal (display:flex
+       en el CSS base). Ponerle "grid-area" a su hijo :last-child NO
+       sirve de nada porque grid-area solo funciona en hijos DIRECTOS
+       de un grid — y el hijo real seguía viviendo dentro del flujo
+       flex de .scrim-meta-row (celda "meta"), dejando la celda
+       "mapas" vacía... pero mostrando el cuadro gris fantasma
+       porque .scrim-meta-row (con grid-area:meta) hacía "span" visual
+       ahí por el auto-placement. Solución: .scrim-meta-row también
+       pasa a ser "contents" (como .scrim-info), así "4 mapas" se
+       convierte en hijo DIRECTO real del grid del .scrim-card y
+       grid-area:mapas funciona de verdad. */
+    .scrim-meta-row {
+      display: contents !important;
+    }
+
+    /* Ítems normales del meta-row (hora + iría "4 mapas" si no fuera
+       el último) que SÍ deben quedar agrupados visualmente: los
+       agrupamos manualmente ya que display:contents les quita
+       cualquier estilo propio de layout */
+    .scrim-meta-row .scrim-meta-item:not(:last-child) {
+      grid-area: meta !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.25rem !important;
+      font-size: 0.65rem !important;
+      color: var(--text-secondary) !important;
+    }
+
+    .scrim-meta-item svg {
+      width: 11px !important;
+      height: 11px !important;
+    }
+
+    /* "4 mapas": ahora sí es hijo directo real del grid → su propia
+       celda arriba-derecha, sin caja, sin fondo, solo texto */
+    .scrim-meta-row .scrim-meta-item:last-child {
+      grid-area: mapas !important;
+      justify-self: end !important;
+      align-self: start !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.25rem !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      font-size: 0.62rem !important;
+      color: var(--text-muted) !important;
+      white-space: nowrap !important;
+    }
+
+    .scrim-mvp-row {
+      grid-area: mvp !important;
+      font-size: 0.65rem !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .scrim-mvp-row svg {
+      width: 11px !important;
+      height: 11px !important;
+    }
+
+    /* 🔥 FIX: .scrim-card-right es "contents", así que TODOS sus hijos
+       se vuelven hijos directos del grid — incluyendo el
+       .scrim-quick-sep que en el HTML de escritorio es HERMANO de
+       .scrim-quick-stats (no está dentro de .scrim-quick-stats).
+       Ese separador "suelto" no tiene grid-area asignado, así que el
+       navegador lo auto-coloca en la primera celda libre (la de
+       abajo), y eso es exactamente la línea/caja fantasma marcada
+       en verde. Lo colapsamos por completo: el único separador que
+       debe verse es el que está DENTRO de .scrim-quick-stats. */
+    .scrim-card-right > .scrim-quick-sep {
+      display: none !important;
+    }
+
+    /* KILLS | separador | REND. — en línea, con el separador visible,
+       un poco más arriba para alinear mejor con el título */
+    .scrim-quick-stats {
+      grid-area: stats !important;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-self: end !important;
+      align-self: start !important;
+      margin-top: -1.15rem !important;
+      gap: 0 !important;
+    }
+
+    .scrim-quick-item {
+      min-width: 44px !important;
+      text-align: center !important;
+    }
+
+    .scrim-quick-val {
+      font-size: 1rem !important;
+    }
+
+    .scrim-quick-lbl {
+      font-size: 0.48rem !important;
+    }
+
+    /* Separador vertical entre KILLS y REND (el que SÍ va dentro de
+       quick-stats) — visible, no display:none */
+    .scrim-quick-stats .scrim-quick-sep {
+      display: block !important;
+      width: 1px !important;
+      height: 26px !important;
+      margin: 0 0.55rem !important;
+      background: var(--border) !important;
+    }
+
+    /* Collage: su propia fila, ancho completo, debajo de todo */
+    .scrim-collage-wrap {
+      grid-area: collage !important;
+      min-width: auto !important;
+      width: 100% !important;
+      margin-top: 0.5rem !important;
+    }
+
+    .scrim-map-collage {
+      height: 68px !important;
+      gap: 4px !important;
+      padding: 4px !important;
+    }
+
+    .scrim-map-slice .slice-label span {
+      font-size: 0.5rem !important;
+      padding: 0.12rem 0.3rem !important;
+    }
+
+    .scrim-map-perf-row {
+      gap: 4px !important;
+      margin-top: 5px !important;
+    }
+
+    .scrim-map-perf-item {
+      padding: 0.3rem 0.2rem !important;
+    }
+
+    .scrim-map-perf-val {
+      font-size: 0.78rem !important;
+    }
+}
+
+/* ── EXTRA SMALL MOBILE ── */
+@media (max-width: 420px) {
+    .mp-overview-grid {
+      gap: 0.5rem !important;
+    }
+
+    .mp-map-banner {
+      height: 66px !important;
+    }
+
+    .mp-map-name {
+      font-size: 0.65rem !important;
+    }
+
+    .mp-rank-name {
+      font-size: 0.62rem !important;
+    }
+
+    .mp-rank-score {
+      font-size: 0.68rem !important;
+    }
+
+    .filter-input,
+    .filter-select {
+      max-width: 100px !important;
+      font-size: 0.68rem !important;
+    }
+
+    .scrim-date-box {
+      width: 48px !important;
+      height: 64px !important;
+    }
+
+    .scrim-date-day {
+      font-size: 1.2rem !important;
+    }
+
+    .scrim-title {
+      font-size: 0.78rem !important;
+    }
+
+    .scrim-map-collage {
+      height: 58px !important;
+    }
+
+    .scrim-map-perf-val {
+      font-size: 0.7rem !important;
+    }
+}
+
+/* ── LANDSCAPE MOBILE ── */
+@media (max-width: 768px) and (orientation: landscape) {
+    .mp-overview-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .scrims-filter-bar {
+      overflow-x: visible !important;
+    }
+}

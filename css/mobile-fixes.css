@@ -1,0 +1,590 @@
+/* ═══════════════════════════════════════════════════════════
+   MOBILE FIXES — Solo aplica en pantallas de teléfono (≤520px)
+   Este archivo NO modifica nada de PC/tablet.
+   Cárgalo DESPUÉS de styles.css en tu HTML:
+
+   <link rel="stylesheet" href="css/styles.css">
+   <link rel="stylesheet" href="css/mobile-fixes.css">   ← nuevo
+
+   ═══════════════════════════════════════════════════════════ */
+
+
+/* ───────────────────────────────────────────────
+   0) HERO PRINCIPAL — foto del jugador (ZAYKO) descentrada
+   El CSS original, en @media(max-width:760px), pone
+   .command-hero__stage en position:absolute con left:33%.
+   Ese 33% fue pensado para pantallas ~760px; en 520px o menos
+   empuja el stage hacia la izquierda y tapa las stats de arriba.
+   Lo centramos con position:static + flex para <=520px.
+   ─────────────────────────────────────────────── */
+   @media (max-width: 520px) {
+
+    /* El styles.css original trae, dentro de este MISMO breakpoint,
+       reglas para estas clases (position:absolute; left:33%; inset:1% -8% 0 0;
+       display:grid). Como comparten el mismo peso de especificidad,
+       usamos !important en los puntos exactos que compiten para
+       garantizar que estas ganen sin tener que tocar styles.css. */
+  
+    #command-hero .command-hero__inner {
+      display: block !important;
+    }
+  
+    #command-hero .command-hero__stage {
+      position: relative !important;
+      inset: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      top: auto !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: flex-end !important;
+      width: 100% !important;
+      min-height: 24rem !important;
+      margin-top: 1.25rem !important;
+    }
+  
+    #command-hero .command-stage__player-wrap {
+      position: relative !important;
+      inset: auto !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: flex-end !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+  
+    #command-hero .command-stage__player {
+      position: relative !important;
+      width: auto !important;
+      max-width: 82% !important;
+      margin: 0 auto !important;
+    }
+  
+    #command-hero .command-stage__fallback {
+      margin: 0 auto 1rem !important;
+    }
+  
+    #command-hero .command-stage__identity {
+      position: absolute !important;
+      right: 50% !important;
+      left: auto !important;
+      bottom: .5rem !important;
+      width: 92% !important;
+      transform: translateX(50%) !important;
+      text-align: center !important;
+      padding-right: 0 !important;
+    }
+  
+    #command-hero .command-stage__identity-top,
+    #command-hero .command-stage__identity-bottom {
+      justify-content: left !important;
+    }
+  
+    #command-hero .command-stage__reticle {
+      right: -2% !important;
+      top: 3% !important;
+    }
+  
+    #command-hero .command-stage__marks {
+      left: 4% !important;
+      top: 4% !important;
+    }
+  
+    #command-hero .command-stage__map {
+      inset: 4% 0% 4% 0% !important;
+    }
+  
+    #command-hero .command-stage__fallback {
+      display: none !important;
+    }
+  
+    /* .command-stage__selectors (01,02,03...) se mantiene visible tal
+       cual el diseño original pide — solo lo reposicionamos para que
+       no se salga del ancho del stage en position:relative. */
+    #command-hero .command-stage__selectors {
+      position: absolute !important;
+      right: 0 !important;
+      bottom: -6px !important;
+      max-width: 100% !important;
+      flex-wrap: wrap !important;
+      justify-content: flex-end !important;
+    }
+  }
+  
+  
+  /* ───────────────────────────────────────────────
+     RED DE SEGURIDAD GLOBAL — evita scroll horizontal
+     en móvil sin importar qué elemento se desborde.
+     Solo corre dentro de max-width:520px, no toca desktop.
+     ─────────────────────────────────────────────── */
+  @media (max-width: 520px) {
+    html, body {
+      overflow-x: hidden !important;
+      max-width: 100vw !important;
+    }
+  
+    #command-hero {
+      overflow: hidden !important;
+      max-width: 100vw !important;
+    }
+  
+    #command-hero * {
+      max-width: 100%;
+    }
+
+    /* ── Centrar el título "EL BOOYAH / SE CONQUISTA" y las stats ──
+       El diseño original alinea .command-hero__copy a la izquierda
+       (es un bloque de texto normal, no flex), así que un
+       justify-content genérico no lo mueve. Hay que centrar el
+       texto explícitamente. */
+    #command-hero .command-hero__copy {
+      max-width: 100% !important;
+      text-align: center !important;
+    }
+
+    #command-hero .command-hero__eyebrow {
+      justify-content: center !important;
+    }
+
+    #command-hero .command-hero__lede {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    #command-hero .command-hero__actions {
+      justify-content: center !important;
+    }
+
+    /* Las stats (Bajas / Rendimiento / Jornadas / Mapas) */
+    #command-hero .command-hero__stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      max-width: 100% !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    #command-hero .command-stat {
+      text-align: center !important;
+      padding-left: .5rem !important;
+      padding-right: .5rem !important;
+    }
+
+    #command-hero .command-stat dt,
+    #command-hero .command-stat dd {
+      text-align: center !important;
+    }
+  }
+  
+  
+  /* ───────────────────────────────────────────────
+     1) ROSTER PRINCIPAL — centrar y reducir altura,
+     arreglar texto del map pool
+     ─────────────────────────────────────────────── */
+  @container roster (max-width: 520px) {
+  
+    /* Reducir la altura vacía de la fila de jugadores */
+    .hero-roster-container {
+      grid-template-rows: max-content 12rem max-content !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .hero-roster-stage {
+      display: flex;
+      justify-content: center;
+      min-height: 0;
+    }
+  
+    .hero-roster-grid {
+      justify-content: center;
+      align-items: flex-end;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .hero-roster-player {
+      height: 100% !important;
+    }
+  
+    /* Map pool: bloque centrado, alineado al mismo ancho del título */
+    .hero-roster-map-pool {
+      width: 100%;
+      margin: 0 auto;
+    }
+  
+    .hero-roster-map-pool__heading {
+      justify-content: center;
+      gap: .5rem;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+  
+    .hero-roster-map-pool__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .5rem;
+    }
+  
+    /* Las tarjetas de mapa: dar más alto y apilar header/footer
+       en vez de forzar el texto en una sola línea apretada */
+    .hero-roster-map.operation-map {
+      aspect-ratio: auto;
+      min-height: 7.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  
+    .hero-roster-map.operation-map .operation-map__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .2rem;
+      padding: .55rem .6rem .3rem;
+    }
+  
+    .hero-roster-map.operation-map .operation-map__footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .35rem;
+      padding: .3rem .6rem .55rem;
+    }
+  
+    .hero-roster-map.operation-map .operation-map__best {
+      max-width: 100%;
+      text-align: left;
+    }
+  
+    .hero-roster-map.operation-map .operation-map__header span {
+      white-space: normal;
+    }
+  }
+  
+  
+  /* ───────────────────────────────────────────────
+     2) "EL TRABAJO DEJA RASTRO" — reordenar el grid
+     Reemplaza el apilado con overlaps por:
+       - lead (título) arriba
+       - fecha arriba
+       - métricas en 2 columnas
+       - botón "abrir jornada" propio, ancho completo
+       - MVP debajo, centrado
+       - mapas en lista vertical (1 columna)
+       - footer al final
+     ─────────────────────────────────────────────── */
+  @media (max-width: 520px) {
+  
+    .operation-record {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "lead"
+        "date"
+        "metrics"
+        "button"
+        "mvp"
+        "maps"
+        "footer";
+      gap: 1.1rem;
+      padding: 1.1rem;
+    }
+  
+    .operation-record__lead {
+      grid-area: lead;
+      text-align: center;
+    }
+  
+    /* El topbar original mezclaba date/metrics/button en un grid
+       propio que ya no aplica: lo aplanamos y dejamos que cada
+       hijo caiga en su propia área del grid padre. */
+    .operation-record__topbar {
+      display: contents;
+    }
+  
+    .operation-record__date {
+      grid-area: date;
+      text-align: left;
+    }
+  
+    .operation-record__metrics {
+      grid-area: metrics;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .65rem;
+    }
+  
+    .operation-record__button {
+      grid-area: button;
+      width: 100%;
+    }
+  
+    .operation-record__mvp {
+      grid-area: mvp;
+      border-top: 1px solid rgba(255,255,255,.13);
+      border-left: 0;
+      padding-top: 1.25rem;
+    }
+  
+    .operation-record__maps {
+      grid-area: maps;
+      grid-template-columns: 1fr;
+      gap: .75rem;
+    }
+  
+    .operation-map {
+      min-height: 8.5rem;
+    }
+  
+    .operation-map__best {
+      max-width: 100%;
+      text-align: right;
+    }
+  
+    .operation-record__footer {
+      grid-area: footer;
+      display: grid;
+      justify-items: start;
+      text-align: left;
+    }
+  }
+
+
+  /* ───────────────────────────────────────────────
+     3) "EL EQUIPO EMPIEZA CUANDO NADIE ESTÁ MIRANDO"
+     El h2 y el párrafo usan clamp() pensado para desktop
+     (hasta 7.2rem de título). En ≤520px se ve gigante.
+     Bajamos tamaños y quitamos el margin-left que lo
+     desplazaba raro.
+     ─────────────────────────────────────────────── */
+  @media (max-width: 520px) {
+
+    .command-story h2 {
+      font-size: 1.4rem !important;
+      line-height: .95 !important;
+    }
+
+    .command-story__statement {
+      margin: 1.25rem 0 0 !important;
+      max-width: 100% !important;
+      font-size: .9rem !important;
+      line-height: 1.55 !important;
+    }
+  }
+
+
+  /* ───────────────────────────────────────────────
+     4) TARJETAS DE MAPA (BERMUDA/KALAHARI/NEXTERRA/PURGATORIO)
+     Reorganizar usando las 4 esquinas de la tarjeta en vez
+     de apilar todo el texto en columna:
+       ┌───────────────┬───────────────┐
+       │ NOMBRE        │   X partidas  │  ← arriba
+       ├───────────────┼───────────────┤
+       │ Bajas totales │  Rendimiento  │  ← abajo
+       └───────────────┴───────────────┘
+     Aplica tanto al map pool del hero (.hero-roster-map)
+     como al de "El trabajo deja rastro" (.operation-map).
+     ─────────────────────────────────────────────── */
+  @media (max-width: 520px) {
+
+    .operation-record__lead h3 {
+      white-space: nowrap;
+      display: inline-block;
+      width: max-content;
+    }
+    .operation-map,
+    .hero-roster-map.operation-map {
+      position: relative !important;
+      min-height: 6.5rem !important;
+      padding: 0 !important;
+      display: block !important;
+    }
+
+    .operation-map__header,
+    .hero-roster-map.operation-map .operation-map__header {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      flex-direction: row !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      padding: .5rem .55rem !important;
+      gap: .4rem !important;
+      background: linear-gradient(180deg, rgba(4,7,8,.85), transparent) !important;
+    }
+
+    .operation-map__header strong,
+    .hero-roster-map.operation-map .operation-map__header strong {
+      font-size: .82rem !important;
+      line-height: 1 !important;
+    }
+
+    .operation-map__header span,
+    .hero-roster-map.operation-map .operation-map__header span {
+      font-size: .55rem !important;
+      white-space: nowrap !important;
+      text-align: right !important;
+    }
+
+    .operation-map__footer,
+    .hero-roster-map.operation-map .operation-map__footer {
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      flex-direction: row !important;
+      align-items: flex-end !important;
+      justify-content: space-between !important;
+      padding: .5rem .55rem !important;
+      gap: .4rem !important;
+      background: linear-gradient(0deg, rgba(4,7,8,.92), transparent) !important;
+    }
+
+    .operation-map__team,
+    .hero-roster-map.operation-map .operation-map__team {
+      text-align: left !important;
+      max-width: 48% !important;
+    }
+
+    .operation-map__best,
+    .hero-roster-map.operation-map .operation-map__best {
+      text-align: right !important;
+      max-width: 52% !important;
+    }
+
+    .operation-map__team small,
+    .operation-map__best small,
+    .hero-roster-map.operation-map .operation-map__team small,
+    .hero-roster-map.operation-map .operation-map__best small {
+      font-size: .48rem !important;
+    }
+
+    .operation-map__team b,
+    .operation-map__best b,
+    .hero-roster-map.operation-map .operation-map__team b,
+    .hero-roster-map.operation-map .operation-map__best b {
+      font-size: .62rem !important;
+      line-height: 1.2 !important;
+    }
+  }
+
+
+
+
+
+  @media (max-width: 760px) {
+    .command-closing {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      grid-template-rows: auto auto !important;
+      align-items: center !important;
+      gap: 1.5rem 1rem !important;
+      padding: 2rem 1.5rem !important;
+      min-height: auto !important;
+    }
+  
+    /* Logo: columna 1, fila 1, centrado */
+    .command-closing__mark {
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+      justify-self: center !important;
+      align-self: center !important;
+      width: 100% !important;
+      max-width: 160px !important;
+      aspect-ratio: 1 !important;
+      border: none !important;
+      background: transparent !important;
+      margin: 0 !important;
+      display: grid !important;
+      place-items: center !important;
+    }
+  
+    .command-closing__mark img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain !important;
+      filter: none !important;
+    }
+  
+    /* El div contenedor del kicker + h2 */
+    .command-closing > div:not(.command-closing__mark):not(.command-closing__links) {
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+      gap: 0.5rem !important;
+      min-height: 100% !important;
+    }
+  
+    /* Kicker */
+    .command-closing .command-kicker {
+      margin: 0 !important;
+      font-size: 0.7rem !important;
+      justify-content: flex-start !important;
+    }
+  
+    /* Título */
+    .command-closing h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem) !important;
+      line-height: 1 !important;
+      margin: 0 !important;
+      text-align: left !important;
+    }
+  
+    /* Botones: fila 2, ocupan ambas columnas */
+    .command-closing__links {
+      grid-column: 1 / -1 !important;
+      grid-row: 2 !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 0.75rem !important;
+      margin-top: 0 !important;
+      justify-content: stretch !important;
+    }
+  
+    .command-closing .command-button {
+      width: 100% !important;
+      min-height: 2.8rem !important;
+      font-size: 0.7rem !important;
+    }
+  
+    .command-closing .command-hero__scroll {
+      display: none !important;
+    }
+  }
+  
+  @media (max-width: 520px) {
+    .command-closing {
+      padding: 1.5rem 1rem !important;
+      gap: 0rem 0.75rem !important;
+    }
+  
+    .command-closing__mark {
+      max-width: 120px !important;
+    }
+  
+    .command-closing h2 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem) !important;
+    }
+  
+    .command-closing__links {
+      gap: 0.5rem !important;
+    }
+  
+    .command-closing .command-button {
+      min-height: 2.5rem !important;
+      font-size: 0.65rem !important;
+    }
+    .operations-deck {
+      padding-top: clamp(1.5rem, 2vw, 10rem);
+      padding-bottom: clamp(0.5rem, 1.5rem, 10rem);
+  }
+  .roster-field {
+    padding-top: clamp(2.5rem, 1vw, 10rem);
+    padding-bottom: clamp(1.5rem, 1vw, 10rem);
+  }
+  .command-story{
+    padding-top: clamp(2.5rem, 1vw, 10rem);
+    padding-bottom: clamp(1.5rem, 1vw, 10rem);
+  }
+}

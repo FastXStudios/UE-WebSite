@@ -1,0 +1,244 @@
+/* css/recruitment.css */
+/* Estilos específicos para la página de Reclutamiento */
+
+/* Ajustes de formulario para que coincidan con el diseño existente */
+#recruitment-section .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  #recruitment-section .form-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+  }
+  
+  #recruitment-section .form-control {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    transition: all 0.2s ease;
+  }
+  
+  #recruitment-section .form-control:focus {
+    outline: none;
+    border-color: var(--active-primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+  }
+  
+  #recruitment-section .form-control::placeholder {
+    color: var(--text-muted);
+  }
+  
+  #recruitment-section .form-error {
+    color: var(--danger);
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+    display: none;
+  }
+  
+  #recruitment-section .required {
+    color: var(--danger);
+    font-weight: 700;
+  }
+  
+  #recruitment-section .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  #recruitment-section textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  /* Switch toggle (mismo estilo que en el resto del proyecto) */
+  #recruitment-section .switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+  }
+  
+  #recruitment-section .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  #recruitment-section .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    transition: 0.3s;
+  }
+  
+  #recruitment-section .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  #recruitment-section .switch input:checked + .slider {
+    background: var(--active-primary);
+    border-color: var(--active-primary);
+  }
+  
+  #recruitment-section .switch input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    #recruitment-section .form-row {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #recruitment-section {
+      padding: 1rem;
+    }
+    #recruitment-section .form-control {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.7rem;
+    }
+  }
+/* ─── ESTILOS DE BOTONES (igual que el resto del proyecto) ─── */
+#recruitment-section .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: var(--radius, 8px);
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1.5px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    min-height: 44px;
+    text-decoration: none;
+}
+  
+#recruitment-section .btn-primary {
+    background: var(--active-primary, #10b981);
+    color: #ffffff;
+    border-color: var(--active-primary, #10b981);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+}
+  
+#recruitment-section .btn-primary:hover:not(:disabled) {
+    background: var(--primary-dark, #059669);
+    border-color: var(--primary-dark, #059669);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+  
+#recruitment-section .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+  
+#recruitment-section .btn-secondary {
+    background: var(--bg-card, #ffffff);
+    color: var(--text-secondary, #475569);
+    border-color: var(--border, #e2e8f0);
+}
+  
+#recruitment-section .btn-secondary:hover:not(:disabled) {
+    background: var(--bg-secondary, #f8fafc);
+    border-color: var(--border-dark, #cbd5e1);
+    color: var(--text-primary, #0f172a);
+}
+  
+#recruitment-section .btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+  
+#recruitment-section .btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+/* ─── ESTILOS DE BOTONES (clases globales) ─── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1.5px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    min-height: 44px;
+    text-decoration: none;
+    color: #ffffff;
+    background: var(--active-primary, #10b981);
+    border-color: var(--active-primary, #10b981);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+}
+
+.btn:hover:not(:disabled) {
+    background: var(--primary-dark, #059669);
+    border-color: var(--primary-dark, #059669);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: var(--bg-card, #ffffff);
+    color: var(--text-secondary, #475569);
+    border-color: var(--border, #e2e8f0);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--bg-secondary, #f8fafc);
+    border-color: var(--border-dark, #cbd5e1);
+    color: var(--text-primary, #0f172a);
+}
+
+.btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}

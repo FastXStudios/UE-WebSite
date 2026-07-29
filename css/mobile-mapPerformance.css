@@ -1,0 +1,296 @@
+@media (max-width: 520px) {
+
+    /* ═════════════════════════════════════════
+       FILTROS EN UNA SOLA FILA
+       ═════════════════════════════════════════ */
+    .mp-filters-bar {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 0.5rem !important;
+      padding: 0.6rem 0.75rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  
+    .mp-filters-group {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      gap: 0.5rem !important;
+    }
+  
+    /* Grupo 1: Fecha */
+    .mp-filters-group:first-child {
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+    }
+  
+    .mp-filter-label {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 0 !important;
+      min-width: 0 !important;
+    }
+  
+    .mp-filter-label span {
+      display: none !important;
+    }
+  
+    .mp-filter-date {
+      flex: 0 0 auto !important;
+      width: 128px !important;
+      min-width: 0 !important;
+      font-size: 0.72rem !important;
+      padding: 0.35rem 0.4rem !important;
+      height: 32px !important;
+      box-sizing: border-box !important;
+    }
+  
+    /* Grupo 2: Checkbox + Limpiar */
+    .mp-filters-group:last-child {
+      flex: 0 0 auto !important;
+      gap: 0.5rem !important;
+    }
+  
+    .mp-filter-checkbox {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 0.35rem !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+  
+    .mp-filter-checkbox input[type="checkbox"] {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 0 !important;
+      flex-shrink: 0 !important;
+    }
+  
+    .mp-filter-checkbox span {
+      display: inline !important;
+      font-size: 0.7rem !important;
+      font-weight: 600 !important;
+      white-space: nowrap !important;
+    }
+  
+    .mp-filter-clear {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.35rem !important;
+      flex-shrink: 0 !important;
+      width: auto !important;
+      height: 30px !important;
+      padding: 0 0.7rem !important;
+      border-radius: 9999px !important;
+      background: var(--bg-tertiary, #f1f5f9) !important;
+      border: 1px solid var(--border, #e2e8f0) !important;
+      font-size: 0.68rem !important;
+      line-height: 1 !important;
+      font-weight: 600 !important;
+      color: var(--text-muted, #94a3b8) !important;
+      white-space: nowrap !important;
+    }
+  
+    .mp-filter-clear::before {
+      content: "" !important;
+      display: inline-block !important;
+      font-size: 0.6rem !important;
+      line-height: 1 !important;
+    }
+  
+    .mp-filters-group:last-child > span {
+      display: none !important;
+    }
+  
+    /* ═════════════════════════════════════════
+       TABLA CON SCROLL HORIZONTAL
+       ═════════════════════════════════════════ */
+    .mp-scrim-accordion-body {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+  
+    .mp-scrim-table {
+      min-width: 600px !important;
+      width: 100% !important;
+    }
+  
+    .mp-scrim-table thead th,
+    .mp-scrim-table tbody td {
+      white-space: nowrap !important;
+    }
+  
+    /* ════════════════════════════════════════
+       FILA DEL ACORDEÓN
+       ═════════════════════════════════════════ */
+    .mp-scrim-accordion-header {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 0.5rem !important;
+      padding: 0.75rem 0.85rem !important;
+    }
+  
+    .mp-scrim-accordion-left {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 0.4rem !important;
+      min-width: 0 !important;
+      flex: 1 1 auto !important;
+    }
+  
+    .mp-scrim-accordion-date {
+      font-size: 0.7rem !important;
+      gap: 0.3rem !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+  
+    .mp-scrim-accordion-date svg {
+      width: 14px !important;
+      height: 14px !important;
+      flex-shrink: 0 !important;
+    }
+  
+    .mp-scrim-accordion-opponent {
+      display: none !important;
+    }
+  
+    .mp-scrim-accordion-right {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      gap: 0.5rem !important;
+      width: auto !important;
+      flex-shrink: 0 !important;
+    }
+  
+    .mp-scrim-accordion-stats {
+      gap: 0.55rem !important;
+    }
+  
+    .mp-scrim-accordion-stat-val {
+      font-size: 0.82rem !important;
+    }
+  
+    .mp-scrim-accordion-stat-lbl {
+      font-size: 0.48rem !important;
+    }
+  
+    .mp-scrim-detail-btn {
+      width: 28px !important;
+      height: 28px !important;
+    }
+  
+    .mp-scrim-detail-btn svg {
+      width: 15px !important;
+      height: 15px !important;
+    }
+  
+    .mp-accordion-arrow svg {
+      width: 16px !important;
+      height: 16px !important;
+    }
+  
+    .mp-scrim-accordion-maps-count {
+      display: none !important;
+    }
+  
+    /* ═══════════════════════════════════════════
+       LAYOUT 2 COLUMNAS: FOTO (26%) + MAPAS (74%)
+       ════════════════════════════════════════════ */
+    .mp-player-hero {
+      display: grid !important;
+      grid-template-columns: 26% 74% !important;
+      grid-template-rows: auto !important;
+      gap: 0.75rem !important;
+      align-items: stretch !important;
+    }
+  
+    /* Columna 1: Foto del jugador */
+    .mp-player-hero-left {
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 3/4 !important;
+      min-height: 0 !important;
+    }
+  
+    .mp-player-hero-photo img {
+      object-fit: cover !important;
+      object-position: center top !important;
+    }
+  
+    /* Columna 2: Grid 2x2 de mapas */
+    .mp-player-hero-right {
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+  
+    .mp-player-hero-right .mp-stat-cards {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      grid-template-rows: repeat(2, 1fr) !important;
+      gap: 0.5rem !important;
+      height: 100% !important;
+      margin-bottom: 0 !important;
+    }
+  
+    .mp-player-hero-right .mp-stat-card {
+      min-height: 85px !important;
+      width: 100% !important;
+      padding-bottom: 0.5rem !important;
+    }
+  
+    .mp-player-hero-right .mp-stat-card-val {
+      font-size: 0.75rem !important;
+      margin-bottom: 0.1rem !important;
+    }
+  
+    .mp-player-hero-right .mp-stat-card-lbl {
+      font-size: 0.48rem !important;
+    }
+  
+    .mp-player-hero-right .mp-stat-card-map {
+      font-size: 0.65rem !important;
+      top: -1.2rem !important;
+      left: 2px;
+    }
+    .mp-stat-card-body{
+        padding: 0rem 0.2rem;
+    }
+
+    .mp-stat-card-range{
+        top: 0.2rem;
+        right: 0.1rem;
+        padding: 0.1rem 0.2rem 0rem 0.4rem;
+        font-size: 9px;
+    }
+    .perf-pill{
+        font-size: 0.67rem;
+    }
+    .perf-pill.hi{
+        height: 20px;
+        background: white;
+    }
+    .perf-pill.md{
+    height: 17px;
+    background: white;
+    }
+    .perf-pill.lo {
+        height: 20px;
+        background: white;
+    }
+}
