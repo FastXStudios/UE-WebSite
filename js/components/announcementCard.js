@@ -32,7 +32,7 @@ const AnnouncementCard = {
           
           <!-- Metadatos arriba: Etiqueta + Fecha -->
           <div class="announcement-meta-top">
-            <span class="announcement-target">${targetLabels[announcement.target] || announcement.target}</span>
+            <!--<span class="announcement-target">${targetLabels[announcement.target] || announcement.target}</span>-->
             <div class="announcement-date-top">
               ${Icons.calendar} ${date}
             </div>
