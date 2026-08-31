@@ -195,7 +195,6 @@ const HeroSection = {
 
           <div class="command-hero__stage" aria-live="polite">
             <div class="command-stage__map" data-hero-map-art></div>
-            <div class="command-stage__reticle" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
             <div class="command-stage__light command-stage__light--back" aria-hidden="true"></div>
             <div class="command-stage__player-wrap">
               <div class="command-stage__shadow" aria-hidden="true"></div>
