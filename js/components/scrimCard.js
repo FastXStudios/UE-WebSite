@@ -25,12 +25,14 @@ const ScrimCard = {
     
     const squad = scrim.squad || State.squad;
     const dateBgClass = squad === 'GIRLS' ? 'scrim-date-bg-girls' : 
-                        squad === 'TIER' ? 'scrim-date-bg-tier' : 
-                        'scrim-date-bg-oficial';
-    
+        squad === 'TIER' ? 'scrim-date-bg-tier' : 
+        squad === 'GOLD' ? 'scrim-date-bg-gold' :
+        'scrim-date-bg-oficial';
+
     const textColorClass = squad === 'GIRLS' ? 'text-girls' : 
-                          squad === 'TIER' ? 'text-tier' : 
-                          'text-oficial';
+          squad === 'TIER' ? 'text-tier' : 
+          squad === 'GOLD' ? 'text-gold' :
+          'text-oficial';
     
     // Map slices SIN badges (solo imágenes)
     const mapSlicesHTML = CONFIG.MAPS.map(m => {

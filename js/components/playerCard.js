@@ -23,11 +23,18 @@ const PlayerCard = {
     const squadColors = {
       OFICIAL: { primary: '#10b981' },
       TIER: { primary: '#3b82f6' },
-      GIRLS: { primary: '#ec4899' }
+      GIRLS: { primary: '#ec4899' },
+      GOLD: { primary: '#f59e0b' }
     };
     const colors = squadColors[squad] || { primary: '#10b981' };
     
-    const bgImage = squad === 'OFICIAL' ? 'player-bg.png' : squad === 'TIER' ? 'player-bg-tier.png' : 'player-bg-girls.png';
+    const squadBgMap = {
+      OFICIAL: 'player-bg.png',
+      TIER: 'player-bg-tier.png',
+      GIRLS: 'player-bg-girls.png',
+      GOLD: 'player-bg-gold.png'  // ← AGREGAR
+    };
+    const bgImage = squadBgMap[squad] || 'player-bg.png';
     
     const photoEscaped = player.photo ? player.photo.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
     

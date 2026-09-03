@@ -75,10 +75,15 @@ const Navbar = {
               <img src="assets/logo-tier.png" alt="TIER">
               TIER
             </button>
+            <button onclick="App.switchSquad('GOLD')" data-squad="GOLD">
+              <img src="assets/logo-gold.png" alt="GOLD">
+              GOLD
+            </button>
             <button onclick="App.switchSquad('GIRLS')" data-squad="GIRLS">
               <img src="assets/logo-girls.png" alt="GIRLS">
               GIRLS
             </button>
+
           </div>
         </div>
       </div>

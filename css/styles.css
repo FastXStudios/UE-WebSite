@@ -42,6 +42,9 @@
   --tier-bg: #eff6ff;
   --girls-primary: #ec4899;
   --girls-bg: #fdf2f8;
+  --gold-primary: #f59e0b;
+  --gold-bg: #fffbeb;
+
 
   /* Feedback */
   --success: #10b981;
@@ -92,6 +95,10 @@
 .squad-girls {
   --active-primary: var(--girls-primary);
   --active-bg: var(--girls-bg);
+}
+.squad-gold { 
+  --active-primary: var(--gold-primary);
+  --active-bg: var(--gold-bg); 
 }
 
 /* Reset */
@@ -1352,6 +1359,10 @@ img {
   background-image: url('../assets/fechgirls.png');
 }
 
+.scrim-date-bg-gold {
+  background-image: url('../assets/fechgold.png');
+}
+
 /* Colores de texto por squad */
 .text-oficial {
   color: var(--primary) !important;
@@ -1363,6 +1374,10 @@ img {
 
 .text-girls {
   color: var(--pink, #ec4899) !important;
+}
+
+.text-gold { 
+  color: #f59e0b !important;
 }
 
 .scrim-date-day {
@@ -1744,6 +1759,9 @@ img {
 
 #scrim-detail-overlay[data-squad="GIRLS"] .scrim-detail-header {
   --header-bg: #fdf2f8;
+}
+#scrim-detail-overlay[data-squad="GOLD"] .scrim-detail-header {
+  --header-bg: #fffbeb;
 }
 
 .scrim-detail-title {
@@ -6816,6 +6834,14 @@ SCROLLBAR FINAL FIX — Sin flechas, delgado y por squad
   scrollbar-color: rgba(236, 72, 153, 0.4) transparent !important;
 }
 
+.squad-gold .scrim-detail-box::-webkit-scrollbar-thumb,
+.squad-gold .mp-scrim-list::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.4) !important;
+}
+.squad-gold .scrim-detail-box,
+.squad-gold .mp-scrim-list {
+  scrollbar-color: rgba(245, 158, 11, 0.4) transparent !important;
+}
 /* 4. ASEGURAR QUE LOS CONTENEDORES TENGAN SCROLL */
 .scrim-detail-box,
 .mp-scrim-list {
@@ -6958,4 +6984,12 @@ body[data-page="home"] .squad-menu img {
   .hero-roster-mvp {
     width: clamp(6.5rem, 32cqw, 8.5rem) !important;
   }
+}
+
+.scrim-date-bg-gold {
+  background-image: url('../assets/fechgold.png');
+}
+
+.text-gold {
+  color: #f59e0b;
 }

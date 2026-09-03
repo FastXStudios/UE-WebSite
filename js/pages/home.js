@@ -25,8 +25,40 @@ const MAP_ART = {
 const SQUAD_PLAYER_BACKGROUNDS = {
   OFICIAL: 'assets/player-bg.png',
   TIER: 'assets/player-bg-tier.png',
-  GIRLS: 'assets/player-bg-girls.png'
+  GIRLS: 'assets/player-bg-girls.png',
+  GOLD: 'assets/player-bg-gold.png'
 };
+
+// 🔥 NUEVO: funciones auxiliares centralizadas para assets por squad
+function getMvpBgImage(squad) {
+  const mvpBgMap = {
+    'OFICIAL': '../assets/designmvp.png',
+    'TIER': '../assets/designmvptier.png',
+    'GIRLS': '../assets/designmvpgirls.png',
+    'GOLD': '../assets/designmvpgold.png'
+  };
+  return mvpBgMap[squad] || mvpBgMap.OFICIAL;
+}
+
+function getMvpOverlayImage(squad) {
+  const overlayMap = {
+    'OFICIAL': '../assets/tf.png',
+    'TIER': '../assets/tftier.png',
+    'GIRLS': '../assets/tfgirls.png',
+    'GOLD': '../assets/tfgold.png'
+  };
+  return overlayMap[squad] || overlayMap.OFICIAL;
+}
+
+function getClosingLogo(squad) {
+  const logoMap = {
+    'OFICIAL': 'logo-oficial.png',
+    'TIER': 'logo-tier.png',
+    'GIRLS': 'logo-girls.png',
+    'GOLD': 'logo-gold.png'
+  };
+  return logoMap[squad] || logoMap.OFICIAL;
+}
 
 const ICON_KILLS = '<img width="20" height="20" src="https://img.icons8.com/glyph-neue/64/down.png" alt="">';
 const ICON_ASSISTS = '<img width="30" height="30" src="https://img.icons8.com/sf-regular-filled/48/define-location.png" alt="">';
@@ -212,8 +244,8 @@ function renderOperations(scrims, players, defaultAvatar, squad) {
       </div>
       <aside class="operation-record__mvp" aria-label="MVP de la jornada">
         <p class="operation-record__mvp-label">MVP de la jornada</p>
-        <div class="mvp-card-pro" style="background-image: url('${squad === 'OFICIAL' ? '../assets/designmvp.png' : squad === 'TIER' ? '../assets/designmvptier.png' : '../assets/designmvpgirls.png'}')">
-          <div class="mvp-card-pro-overlay" style="background-image: url('${squad === 'OFICIAL' ? '../assets/tf.png' : squad === 'TIER' ? '../assets/tftier.png' : '../assets/tfgirls.png'}')"></div>
+        <div class="mvp-card-pro" style="background-image: url('${getMvpBgImage(squad)}')">
+          <div class="mvp-card-pro-overlay" style="background-image: url('${getMvpOverlayImage(squad)}')"></div>
           <div class="mvp-photo-overlay">
             ${mvpPhoto ? `<img src="${escapeHTML(mvpPhoto)}" alt="${escapeHTML(mvpName)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false">` : ''}
             <div class="mvp-photo-placeholder" ${mvpPhoto ? 'hidden' : ''}>${escapeHTML(mvpName.charAt(0).toUpperCase())}</div>
@@ -343,7 +375,8 @@ const HomePage = {
     const squadColors = {
       OFICIAL: { primary: '#10b981' },
       TIER: { primary: '#3b82f6' },
-      GIRLS: { primary: '#ec4899' }
+      GIRLS: { primary: '#ec4899' },
+      GOLD: { primary: '#f59e0b' }
     };
 
     const rosterContainer = document.getElementById('hero-roster-panel');
@@ -418,7 +451,7 @@ const HomePage = {
 
         <!-- Sección 4: Closing -->
         <section class="command-closing" style="display:none" aria-label="Accesos de UZX" id="home-closing">
-          <div class="command-closing__mark" aria-hidden="true"><img src="assets/${squad === 'OFICIAL' ? 'logo-oficial.png' : squad === 'TIER' ? 'logo-tier.png' : 'logo-girls.png'}" alt=""></div>
+          <div class="command-closing__mark" aria-hidden="true"><img src="assets/${getClosingLogo(squad)}" alt=""></div>
           <div>
             <p class="command-kicker">UZX ${squad}</p>
             <h2>PREPARADOS<br>PARA RESPONDER.</h2>
@@ -594,7 +627,7 @@ const HomePage = {
     const kickers = document.querySelectorAll('.command-kicker');
     kickers.forEach(el => {
       const text = el.textContent.trim();
-      if (/^UZX\s+(OFICIAL|TIER|GIRLS)$/i.test(text)) {
+      if (/^UZX\s+(OFICIAL|TIER|GIRLS|GOLD)$/i.test(text)) {
         el.textContent = `UZX ${squad}`;
       }
     });
@@ -602,7 +635,7 @@ const HomePage = {
     // 3. Actualizar logos del closing section
     const closingMark = document.querySelector('.command-closing__mark img');
     if (closingMark) {
-      closingMark.src = `assets/${squad === 'OFICIAL' ? 'logo-oficial.png' : squad === 'TIER' ? 'logo-tier.png' : 'logo-girls.png'}`;
+      closingMark.src = `assets/${getClosingLogo(squad)}`;
     }
     
     // 4. Actualizar toda la UI con los nuevos datos (esto también oculta el skeleton y muestra las secciones)

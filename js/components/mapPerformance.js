@@ -237,7 +237,7 @@ function groupBreakdownByScrim(breakdown) {
     // Actualizar título
     const titleEl = document.getElementById('mp-modal-title');
     if (titleEl && player?.squad) {
-      const squadColors = { OFICIAL: '#10b981', TIER: '#3b82f6', GIRLS: '#ec4899' };
+      const squadColors = { OFICIAL: '#10b981', TIER: '#3b82f6', GIRLS: '#ec4899', GOLD: '#f59e0b'};
       const color = squadColors[player.squad] || '#10b981';
       titleEl.innerHTML = `Rendimiento por Mapa — Equipo: <span style="color:${color}">UZX ${esc(player.squad)}</span>`;
     }
@@ -245,7 +245,8 @@ function groupBreakdownByScrim(breakdown) {
     const squadBgMap = {
       OFICIAL: 'player-bg.png',
       TIER: 'player-bg-tier.png',
-      GIRLS: 'player-bg-girls.png'
+      GIRLS: 'player-bg-girls.png',
+      GOLD: 'player-bg-gold.png'
     };
     const bgImage = squadBgMap[player?.squad] || 'player-bg.png';
 

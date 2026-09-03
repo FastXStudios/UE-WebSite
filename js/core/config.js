@@ -6,7 +6,8 @@ const CONFIG = {
     SQUAD_LOGOS: {
       OFICIAL: 'logo-oficial.png',
       TIER: 'logo-tier.png',
-      GIRLS: 'logo-girls.png'
+      GIRLS: 'logo-girls.png',
+      GOLD: 'logo-gold.png'
     }
   };
   

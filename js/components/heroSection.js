@@ -38,6 +38,14 @@ const SQUAD_COLORS = {
     '#7c3aed', // Púrpura
     '#fb7185', // Coral/Rosa
     '#c026d3'  // Magenta
+  ],
+  GOLD: [
+    '#f59e0b', // Ámbar
+    '#fbbf24', // Amarillo
+    '#d97706', // Naranja
+    '#fcd34d', // Amarillo claro
+    '#b45309', // Naranja oscuro
+    '#fde68a'  // Amarillo pálido
   ]
 };
 

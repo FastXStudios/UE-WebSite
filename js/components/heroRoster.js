@@ -147,7 +147,8 @@ function renderHeroRoster(players, squadColors, scrims = [], squad = 'OFICIAL') 
   const ROSTER_BG = {
     OFICIAL: '/assets/fd-rooster-oficial.png',
     TIER: '/assets/fd-rooster-tier.png',
-    GIRLS: '/assets/fd-rooster-girls.png'
+    GIRLS: '/assets/fd-rooster-girls.png',
+    GOLD: '/assets/fd-rooster-gold.png'
   };
   const rosterBgImage = ROSTER_BG[squadKey] || ROSTER_BG.OFICIAL;
 

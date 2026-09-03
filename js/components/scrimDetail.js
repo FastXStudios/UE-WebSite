@@ -133,12 +133,14 @@ function renderContent(scrim, ctx) {
   const designImages = {
     OFICIAL: '../assets/designmvp.png',
     TIER: '../assets/designmvptier.png',
-    GIRLS: '../assets/designmvpgirls.png'
+    GIRLS: '../assets/designmvpgirls.png',
+    GOLD: '../assets/designmvpgold.png'
   };
   const tfImages = {
     OFICIAL: '../assets/tf.png',
     TIER: '../assets/tftier.png',
-    GIRLS: '../assets/tfgirls.png'
+    GIRLS: '../assets/tfgirls.png',
+    GOLD: '../assets/tfgold.png'
   };
 
   const designImage = designImages[squad] || designImages.OFICIAL;

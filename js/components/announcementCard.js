@@ -7,7 +7,8 @@ const AnnouncementCard = {
       ALL: 'Todos',
       OFICIAL: 'UZX OFICIAL',
       TIER: 'UZX TIER',
-      GIRLS: 'UZX GIRLS'
+      GIRLS: 'UZX GIRLS',
+      GOLD: 'UZX GOLD'
     };
     
     const date = new Date(announcement.createdAt).toLocaleDateString('es', {
