@@ -31,7 +31,7 @@ const PlayersPage = {
           <div class="section-title">
             ${Icons.players} Jugadores — UZX ${squad}
           </div>
-          <div class="section-sub">Estadísticas completas del roster activo</div>
+          <div class="section-sub">Estadísticas completas del roster activo - Temporada 2</div>
         </div>
         
         <!-- Buscador premium -->
