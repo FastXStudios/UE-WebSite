@@ -1,6 +1,7 @@
 // js/components/navbar.js
 import State from '../core/state.js';
 import Icons from '../core/icons.js';
+import PublicRosters from '../core/rosters.js';
 
 let _navbarInstance = null;
 let _navbarElement = null;
@@ -117,12 +118,49 @@ const Navbar = {
           });
         }
       }, 0);
-      
+
+      // 🔥 NUEVO: reconstruir el menú con SOLO los rosters activos.
+      PublicRosters.fetchActive().then((list) => {
+        const menu = document.querySelector('.squad-menu');
+        if (!menu) return;
+        menu.innerHTML = list.map(r => {
+          const id = String(r.id).toUpperCase();
+          return `
+            <button onclick="App.switchSquad('${id}')" data-squad="${id}">
+              <img src="assets/logo-${r.id}.png" alt="${id}">
+              ${id}
+            </button>
+          `;
+        }).join('');
+        // Re-marcar el activo
+        menu.querySelectorAll('button').forEach(b => {
+          b.classList.toggle('active', b.dataset.squad === State.squad);
+        });
+      }).catch(() => { /* silencioso */ });
+
       return;
     }
     
     this._updateActiveStates();
     this._updateSquadInfo(State.squad);
+
+    // 🔥 NUEVO: refrescar el menú de squads activos en cada update.
+    PublicRosters.fetchActive().then((list) => {
+      const menu = document.querySelector('.squad-menu');
+      if (!menu) return;
+      menu.innerHTML = list.map(r => {
+        const id = String(r.id).toUpperCase();
+        return `
+          <button onclick="App.switchSquad('${id}')" data-squad="${id}">
+            <img src="assets/logo-${r.id}.png" alt="${id}">
+            ${id}
+          </button>
+        `;
+      }).join('');
+      menu.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('active', b.dataset.squad === State.squad);
+      });
+    }).catch(() => { /* silencioso */ });
   },
   
   _updateActiveStates() {

@@ -10,6 +10,7 @@ import ScrimsPage from './pages/jornadas.js';
 import AnnouncementsPage from './pages/announcements.js';
 import { viewCache } from './core/viewCache.js';
 import RecruitmentPage from './pages/recruitment.js';
+import PublicRosters from './core/rosters.js';
 
 const App = {
   pages: {
@@ -48,6 +49,18 @@ const App = {
     }
     
     await Wakeup.waitForServer();
+
+    // 🔥 NUEVO: validar el squad guardado contra el backend ANTES de renderizar.
+    // Si el roster guardado está desactivado, movemos al primero activo.
+    try {
+      const valid = await PublicRosters.resolveValidSquad();
+      if (valid && valid !== State.squad) {
+        State.squad = valid; // esto actualiza localStorage y document.body.className
+      }
+    } catch (e) {
+      console.warn('No se pudo validar el roster activo:', e);
+    }
+
     Wakeup.hide();
     
     await this.navigate('home');
@@ -110,6 +123,12 @@ const App = {
   },
   
   async switchSquad(squad) {
+    // 🔥 NUEVO: no permitir cambiar a un roster desactivado.
+    if (!(await PublicRosters.isActive(squad))) {
+      console.warn(`El roster ${squad} está desactivado`);
+      return;
+    }
+
     const currentPageName = this._currentPage || State.page || 'home';
     const pageModule = this.pages[currentPageName];
     
