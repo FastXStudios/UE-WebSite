@@ -174,8 +174,7 @@ const HeroSection = {
         <div class="command-hero__inner">
           <div class="command-hero__copy" data-reveal>
             <div class="command-hero__eyebrow">
-              <span class="command-hero__pulse"></span>
-              <span>UZX ${squad}</span>
+              <span class="command-hero__squad">UZX ${squad}</span>
               <span class="command-hero__rule"></span>
               <span>Free Fire · LATAM</span>
             </div>

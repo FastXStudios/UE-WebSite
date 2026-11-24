@@ -1,3 +1,19 @@
+@media (max-width: 768px) {
+    /* Loading "Cargando rendimiento por mapa / del jugador":
+       igual que el loading de scrims, para que no se encoja en móvil */
+    .mp-loading-block {
+        padding: 2rem 1rem !important;
+        font-size: 0.8rem !important;
+        flex-wrap: wrap;
+    }
+
+    .mp-loading-block::before {
+        width: 20px !important;
+        height: 20px !important;
+        flex-shrink: 0 !important;
+    }
+}
+
 @media (max-width: 520px) {
 
     /* ═════════════════════════════════════════

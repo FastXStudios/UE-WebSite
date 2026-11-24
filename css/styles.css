@@ -2729,16 +2729,20 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  grid-column: 1 / -1;
+  width: 100%;
   gap: 0.75rem;
   padding: 3rem;
   color: var(--text-muted);
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .mp-loading-block::before {
   content: '';
   width: 20px;
   height: 20px;
+  flex-shrink: 0;
   border: 3px solid var(--border);
   border-top-color: var(--active-primary);
   border-radius: 50%;
@@ -4079,13 +4083,8 @@ body[data-page="home"] .squad-current {
   text-transform: uppercase;
 }
 
-.command-hero__pulse {
-  width: .43rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--scene-accent);
-  box-shadow: 0 0 0 .28rem color-mix(in srgb, var(--scene-accent) 18%, transparent);
-  animation: command-pulse 2.8s ease-out infinite;
+.command-hero__squad {
+  color: var(--scene-accent);
 }
 
 .command-hero__rule {
@@ -6663,7 +6662,7 @@ body[data-page="home"] .squad-current {
   @media (max-width: 640px) {
     .command-story__roster {
       height: auto;
-      min-height: 37rem;
+      min-height: 32rem;
       padding-right: 0;
       margin-top: 2rem;
     }
@@ -6671,7 +6670,7 @@ body[data-page="home"] .squad-current {
     .hero-roster-container {
       grid-template-rows: max-content clamp(13.2rem, 60cqw, 18rem) max-content;
       gap: .85rem;
-      min-height: 37rem;
+      min-height: 32rem;
       padding-top: 0;
     }
 
@@ -6686,6 +6685,8 @@ body[data-page="home"] .squad-current {
 
     .hero-roster-stage::before {
       inset: 0;
+      background-size: auto 80%;
+      background-position: center bottom;
     }
 
     .hero-roster-stage {

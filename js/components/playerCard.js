@@ -29,12 +29,12 @@ const PlayerCard = {
     const colors = squadColors[squad] || { primary: '#10b981' };
     
     const squadBgMap = {
-      OFICIAL: 'player-bg.png',
+      OFICIAL: 'player-bg.gif',
       TIER: 'player-bg-tier.png',
       GIRLS: 'player-bg-girls.png',
       GOLD: 'player-bg-gold.png'  // ← AGREGAR
     };
-    const bgImage = squadBgMap[squad] || 'player-bg.png';
+    const bgImage = squadBgMap[squad] || 'player-bg.gif';
     
     const photoEscaped = player.photo ? player.photo.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
     

@@ -23,7 +23,7 @@ const MAP_ART = {
 };
 
 const SQUAD_PLAYER_BACKGROUNDS = {
-  OFICIAL: 'assets/player-bg.png',
+  OFICIAL: 'assets/player-bg.gif',
   TIER: 'assets/player-bg-tier.png',
   GIRLS: 'assets/player-bg-girls.png',
   GOLD: 'assets/player-bg-gold.png'

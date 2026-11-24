@@ -243,12 +243,12 @@ function groupBreakdownByScrim(breakdown) {
     }
 
     const squadBgMap = {
-      OFICIAL: 'player-bg.png',
+      OFICIAL: 'player-bg.gif',
       TIER: 'player-bg-tier.png',
       GIRLS: 'player-bg-girls.png',
       GOLD: 'player-bg-gold.png'
     };
-    const bgImage = squadBgMap[player?.squad] || 'player-bg.png';
+    const bgImage = squadBgMap[player?.squad] || 'player-bg.gif';
 
     // 🔥 HEADER con la foto correcta
     const headerHTML = opts.hideHeader ? '' : `

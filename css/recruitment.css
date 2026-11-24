@@ -43,6 +43,40 @@
     margin-top: 0.25rem;
     display: none;
   }
+
+  #recruitment-section .form-summary {
+    display: none;
+    background: var(--danger-bg, #fee2e2);
+    border: 1px solid var(--danger, #ef4444);
+    border-left: 4px solid var(--danger, #ef4444);
+    border-radius: var(--radius, 8px);
+    padding: 0.9rem 1rem;
+    margin-bottom: 1.25rem;
+    color: var(--danger, #ef4444);
+    font-size: 0.85rem;
+  }
+
+  #recruitment-section .form-summary-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  #recruitment-section .form-summary ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  #recruitment-section .form-summary li {
+    margin: 0.2rem 0;
+  }
+
+  #recruitment-section .form-control.form-invalid {
+    border-color: var(--danger, #ef4444) !important;
+    box-shadow: 0 0 0 3px var(--danger-bg, #fee2e2) !important;
+  }
   
   #recruitment-section .required {
     color: var(--danger);

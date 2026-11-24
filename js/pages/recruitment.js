@@ -125,6 +125,118 @@ function getCountryCode(country) {
   return COUNTRY_CODES[country] || '+1';
 }
 
+// ─── ETIQUETAS LEGIBLES POR CAMPO (para el resumen de errores) ─
+const FIELD_LABELS = {
+  realName: 'Nombre real',
+  age: 'Edad',
+  country: 'País',
+  serverRegion: 'Servidor',
+  phoneCountryCode: 'Código de país',
+  phoneNumber: 'Número de teléfono',
+  gameName: 'Nombre en juego',
+  freeFireId: 'ID de Free Fire',
+  accountLevel: 'Nivel de cuenta',
+  yearsPlaying: 'Años jugando',
+  mainRole: 'Rol principal',
+  skillLevel: 'Nivel de Jugabilidad',
+  situation: 'Situación actual',
+  competitiveLevels: 'Niveles competitivos',
+  otherTournamentName: 'Nombre del torneo',
+  competedInTournaments: 'Competido en torneos',
+  tournamentExperience: 'Experiencia en torneos',
+  wasInClan: 'Estado en clanes',
+  clanNames: 'Nombres de los clanes',
+  playedInCompetitiveTeams: 'Equipos competitivos',
+  competitiveTeamNames: 'Nombres de los equipos',
+  highlightsUrl: 'URL de highlights',
+  bestResult: 'Mejor resultado',
+  competitiveTime: 'Tiempo en equipos competitivos',
+  daysPerWeek: 'Días por semana',
+  availableSchedule: 'Horario disponible',
+  deviceType: 'Tipo de dispositivo',
+  deviceTier: 'Nivel de dispositivo',
+  fpsStability: 'Estabilidad de FPS',
+  connectionQuality: 'Calidad de conexión',
+  discordUsername: 'Usuario de Discord',
+  micUsage: 'Uso de micrófono',
+  noiseLevel: 'Nivel de ruido ambiental',
+  currentlyInOtherTeam: 'Equipo actual',
+  willingToLeaveTeam: 'Disposición a dejar el equipo',
+  whyJoin: 'Motivo para unirte',
+  whatCanContribute: 'Qué puedes aportar',
+  biggestStrength: 'Mayor fortaleza',
+  biggestWeakness: 'Mayor debilidad',
+  additionalNotes: 'Notas adicionales'
+};
+
+// ─── MOSTRAR ERRORES (mensajes por campo + resumen + resaltado) ─
+function showStepErrors(errors) {
+  const fieldEntries = Object.entries(errors);
+
+  // 1. Mensajes inline junto a cada campo
+  document.querySelectorAll('.form-error').forEach(el => {
+    const field = el.id.replace('err-', '');
+    if (errors[field]) {
+      el.textContent = errors[field];
+      el.style.display = 'block';
+    } else {
+      el.textContent = '';
+      el.style.display = 'none';
+    }
+  });
+
+  // 2. Resaltar los controles inválidos (borde rojo)
+  fieldEntries.forEach(([field]) => {
+    const input = document.getElementById(`f-${field}`);
+    if (input) {
+      input.classList.add('form-invalid');
+      input.setAttribute('aria-invalid', 'true');
+    }
+  });
+  document.querySelectorAll('.form-invalid').forEach(el => {
+    const field = (el.id || '').replace('f-', '');
+    if (!errors[field]) {
+      el.classList.remove('form-invalid');
+      el.removeAttribute('aria-invalid');
+    }
+  });
+
+  // 3. Resumen superior con la lista concreta de lo que falta
+  const summaryEl = document.getElementById('form-summary');
+  if (summaryEl) {
+    if (fieldEntries.length > 0) {
+      const items = fieldEntries.map(([field, msg]) =>
+        `<li><strong>${FIELD_LABELS[field] || field}:</strong> ${esc(msg)}</li>`
+      ).join('');
+      summaryEl.innerHTML = `
+        <div class="form-summary-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Revisa ${fieldEntries.length === 1 ? 'el siguiente campo' : `los siguientes ${fieldEntries.length} campos`}:
+        </div>
+        <ul>${items}</ul>
+      `;
+      summaryEl.style.display = 'block';
+    } else {
+      summaryEl.innerHTML = '';
+      summaryEl.style.display = 'none';
+    }
+  }
+
+  return fieldEntries.length > 0;
+}
+
+function scrollToFirstInvalid() {
+  const summaryEl = document.getElementById('form-summary');
+  if (summaryEl && summaryEl.style.display !== 'none' && summaryEl.style.display !== '') {
+    summaryEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  const firstErr = document.querySelector('.form-error:not(:empty)');
+  if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 // ─── VALIDACIONES ─────────────────────────────────────────────
 function validateStep(stepId, data) {
     const errors = {};
@@ -137,7 +249,8 @@ function validateStep(stepId, data) {
       
       if (!data.country) errors.country = 'Selecciona tu país.';
       
-      if (data.serverRegion && data.serverRegion.length > 15) errors.serverRegion = 'Máximo 15 caracteres.';
+      if (!data.serverRegion || data.serverRegion.trim().length === 0) errors.serverRegion = 'El servidor es obligatorio.';
+      else if (data.serverRegion.length > 15) errors.serverRegion = 'Máximo 15 caracteres.';
       
       if (!data.phoneCountryCode) errors.phoneCountryCode = 'Selecciona el código de país.';
       if (!data.phoneNumber || data.phoneNumber.length === 0) errors.phoneNumber = 'El número de teléfono es obligatorio.';
@@ -232,7 +345,9 @@ function validateStep(stepId, data) {
       }
       if (!data.micUsage) errors.micUsage = 'Selecciona tu uso de micrófono.';
       if (!data.noiseLevel) errors.noiseLevel = 'Selecciona el nivel de ruido.';
-      if (data.currentlyInOtherTeam && data.willingToLeaveTeam === null) {
+      if (data.currentlyInOtherTeam === null) {
+        errors.currentlyInOtherTeam = 'Selecciona si estás actualmente en otro equipo.';
+      } else if (data.currentlyInOtherTeam === true && data.willingToLeaveTeam === null) {
         errors.willingToLeaveTeam = 'Indica si estás dispuesto a dejar tu equipo actual.';
       }
     }
@@ -348,6 +463,8 @@ function renderRecruitmentForm() {
         <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.5rem;">
           ${getStepDescription(step.id)}
         </p>
+
+        <div id="form-summary" class="form-summary" role="alert" aria-live="polite"></div>
 
         <div id="step-content">
           ${renderStep(step.id)}
@@ -534,7 +651,7 @@ function renderStep(stepId) {
     return `
       <div class="form-group">
         <label class="form-label">Niveles competitivos en los que has participado <span class="required">*</span></label>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem;">
+        <div id="f-competitiveLevels" style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem;">
           ${COMPETITIVE_LEVELS.map(level => `
             <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;cursor:pointer;">
               <input type="checkbox" value="${level}" ${levels.includes(level) ? 'checked' : ''} />
@@ -561,6 +678,7 @@ function renderStep(stepId) {
             <option value="true" ${data.competedInTournaments === true ? 'selected' : ''}>Sí</option>
             <option value="false" ${data.competedInTournaments === false ? 'selected' : ''}>No</option>
           </select>
+          <div class="form-error" id="err-competedInTournaments"></div>
         </div>
         <div class="form-group">
           <label class="form-label">Mejor resultado <span class="required">*</span></label>
@@ -580,6 +698,7 @@ function renderStep(stepId) {
                 <option value="FINALISTA" ${data.bestResult === 'FINALISTA' ? 'selected' : ''}>Finalista</option>
                 <option value="CAMPEON" ${data.bestResult === 'CAMPEON' ? 'selected' : ''}>Campeón</option>
           </select>
+          <div class="form-error" id="err-bestResult"></div>
         </div>
       </div>
 
@@ -599,6 +718,7 @@ function renderStep(stepId) {
             <option value="true" ${data.wasInClan === true ? 'selected' : ''}>Sí</option>
             <option value="false" ${data.wasInClan === false ? 'selected' : ''}>No</option>
           </select>
+          <div class="form-error" id="err-wasInClan"></div>
         </div>
         <div class="form-group">
           <label class="form-label">Tiempo en equipos competitivos <span class="required">*</span></label>
@@ -612,6 +732,7 @@ function renderStep(stepId) {
             <option value="4_ANIOS" ${data.competitiveTime === '4_ANIOS' ? 'selected' : ''}>4 años</option>
             <option value="MAS_5_ANIOS" ${data.competitiveTime === 'MAS_5_ANIOS' ? 'selected' : ''}>Más de 5 años</option>
           </select>
+          <div class="form-error" id="err-competitiveTime"></div>
         </div>
       </div>
 
@@ -631,6 +752,7 @@ function renderStep(stepId) {
             <option value="true" ${data.playedInCompetitiveTeams === true ? 'selected' : ''}>Sí</option>
             <option value="false" ${data.playedInCompetitiveTeams === false ? 'selected' : ''}>No</option>
           </select>
+          <div class="form-error" id="err-playedInCompetitiveTeams"></div>
         </div>
             <div class="form-group">
             <label class="form-label">URL de highlights (opcional)</label>
@@ -784,6 +906,7 @@ function renderStep(stepId) {
             <option value="true" ${data.currentlyInOtherTeam === true ? 'selected' : ''}>Sí</option>
             <option value="false" ${data.currentlyInOtherTeam === false ? 'selected' : ''}>No</option>
           </select>
+          <div class="form-error" id="err-currentlyInOtherTeam"></div>
         </div>
         <div class="form-group" id="willing-to-leave-container" style="display:${data.currentlyInOtherTeam ? 'block' : 'none'};">
           <label class="form-label">¿Dispuesto a dejar tu equipo actual? <span class="required">*</span></label>
@@ -991,8 +1114,10 @@ function collectStepData(stepId) {
     data.micUsage = document.getElementById('f-micUsage').value;
     data.noiseLevel = document.getElementById('f-noiseLevel').value;
     data.usesHeadset = document.getElementById('f-usesHeadset').checked;
-    data.currentlyInOtherTeam = document.getElementById('f-currentlyInOtherTeam').value === 'true';
-    data.willingToLeaveTeam = document.getElementById('f-willingToLeaveTeam').value === 'true';
+    const currentlyInOtherTeamRaw = document.getElementById('f-currentlyInOtherTeam').value;
+    data.currentlyInOtherTeam = currentlyInOtherTeamRaw === 'true' ? true : (currentlyInOtherTeamRaw === 'false' ? false : null);
+    const willingToLeaveRaw = document.getElementById('f-willingToLeaveTeam').value;
+    data.willingToLeaveTeam = willingToLeaveRaw === 'true' ? true : (willingToLeaveRaw === 'false' ? false : null);
   }
 
   if (stepId === 'motivation') {
@@ -1040,30 +1165,8 @@ function attachStepListeners() {
         const data = collectStepData(stepId);
         const errors = validateStep(stepId, data);
   
-        // Mostrar errores
-        let hasError = false;
-        for (const [field, msg] of Object.entries(errors)) {
-          const errEl = document.getElementById(`err-${field}`);
-          if (errEl) {
-            errEl.textContent = msg;
-            errEl.style.display = 'block';
-            hasError = true;
-          }
-        }
-  
-        // Limpiar errores de campos sin error
-        document.querySelectorAll('.form-error').forEach(el => {
-          const field = el.id.replace('err-', '');
-          if (!errors[field]) {
-            el.textContent = '';
-            el.style.display = 'none';
-          }
-        });
-  
-        if (hasError) {
-          // Scroll al primer error
-          const firstErr = document.querySelector('.form-error:not(:empty)');
-          if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (showStepErrors(errors)) {
+          scrollToFirstInvalid();
           return;
         }
   
@@ -1113,31 +1216,12 @@ async function submitApplication() {
     const stepId = STEPS[_currentStep].id;
     const data = collectStepData(stepId);
     const errors = validateStep(stepId, data);
-  
-    let hasError = false;
-    for (const [field, msg] of Object.entries(errors)) {
-      const errEl = document.getElementById(`err-${field}`);
-      if (errEl) {
-        errEl.textContent = msg;
-        errEl.style.display = 'block';
-        hasError = true;
-      }
-    }
-  
-    document.querySelectorAll('.form-error').forEach(el => {
-      const field = el.id.replace('err-', '');
-      if (!errors[field]) {
-        el.textContent = '';
-        el.style.display = 'none';
-      }
-    });
-  
-    if (hasError) {
-      const firstErr = document.querySelector('.form-error:not(:empty)');
-      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    if (showStepErrors(errors)) {
+      scrollToFirstInvalid();
       return;
     }
-  
+
     _formData = { ..._formData, ...data };
   
     // Generar fingerprint
