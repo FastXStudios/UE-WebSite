@@ -443,7 +443,7 @@ function renderRecruitmentForm() {
       </div>
 
       <!-- Pasos (indicadores) -->
-      <div style="display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <div style="display:flex;gap:0.2rem;margin-bottom:2rem;flex-wrap:wrap;">
         ${STEPS.map((s, i) => `
           <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;color:${i === _currentStep ? 'var(--active-primary)' : i < _currentStep ? 'var(--text-muted)' : 'var(--text-muted)'};">
             <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:${i === _currentStep ? 'var(--active-primary)' : i < _currentStep ? 'var(--bg-tertiary)' : 'var(--bg-tertiary)'};color:${i === _currentStep ? '#fff' : 'var(--text-muted)'};font-size:0.7rem;">

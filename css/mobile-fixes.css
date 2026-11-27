@@ -461,7 +461,7 @@
     .operation-map__best b,
     .hero-roster-map.operation-map .operation-map__team b,
     .hero-roster-map.operation-map .operation-map__best b {
-      font-size: .62rem !important;
+      font-size: .55rem !important;
       line-height: 1.2 !important;
     }
   }

@@ -83,7 +83,7 @@ function renderHeroRoster(players, squadColors, scrims = [], squad = 'OFICIAL') 
                   </div>
                   <div class="operation-map__footer">
                     <span class="operation-map__team"><small>Equipo</small><b>${map.kills} bajas</b></span>
-                    <span class="operation-map__best"><small>Rendimiento del mapa</small><b>${performancePercentage}% (${avgPositionDisplay})</b></span>
+                    <span class="operation-map__best"><small>Rendimiento</small><b>${performancePercentage}% (${avgPositionDisplay})</b></span>
                   </div>
                 </article>
               `;

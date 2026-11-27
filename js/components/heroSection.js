@@ -184,7 +184,7 @@ const HeroSection = {
 
             <div class="command-hero__actions">
               <button class="command-button command-button--primary" type="button" data-home-action="players">
-                <span>Explorar jugadores</span>
+                <span style="font-weight: 700;">Explorar jugadores</span>
                 <span aria-hidden="true">↗</span>
               </button>
               <button class="command-button command-button--quiet" type="button" data-home-scroll="home-operations">

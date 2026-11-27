@@ -236,7 +236,7 @@
     }
 
     .scrim-detail-meta {
-      font-size: 0.7rem !important;
+      font-size: 0.66rem !important;
     }
 
     .scrim-detail-body {
@@ -272,7 +272,7 @@
     }
 
     .mvp-gstat-card {
-      min-height: 56px !important;
+      min-height: 40px !important;
     }
 
     .mvp-gstat-val {

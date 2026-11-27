@@ -11,6 +11,7 @@ import AnnouncementsPage from './pages/announcements.js';
 import { viewCache } from './core/viewCache.js';
 import RecruitmentPage from './pages/recruitment.js';
 import PublicRosters from './core/rosters.js';
+import { initMvpDownload } from './core/mvpDownload.js';
 
 const App = {
   pages: {
@@ -26,6 +27,9 @@ const App = {
   _isInitialized: false,
   
   async init() {
+    // Descarga PNG de las tarjetas MVP (delegación única para INICIO y JORNADAS)
+    initMvpDownload();
+
     // 🔥 CRUCIAL: Aplicar el color del tema guardado en localStorage ANTES de renderizar
     const savedSquad = localStorage.getItem('uzx_squad') || 'OFICIAL';
     document.body.className = `squad-${savedSquad.toLowerCase()}`;

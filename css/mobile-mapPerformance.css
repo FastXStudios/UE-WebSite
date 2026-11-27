@@ -237,7 +237,7 @@
   
     /* Columna 1: Foto del jugador */
     .mp-player-hero-left {
-      width: 100% !important;
+      width: 110% !important;
       height: auto !important;
       aspect-ratio: 3/4 !important;
       min-height: 0 !important;
@@ -271,12 +271,12 @@
     }
   
     .mp-player-hero-right .mp-stat-card-val {
-      font-size: 0.75rem !important;
+      font-size: 0.70rem !important;
       margin-bottom: 0.1rem !important;
     }
   
     .mp-player-hero-right .mp-stat-card-lbl {
-      font-size: 0.48rem !important;
+      font-size: 0.44rem !important;
     }
   
     .mp-player-hero-right .mp-stat-card-map {
@@ -292,7 +292,7 @@
         top: 0.2rem;
         right: 0.1rem;
         padding: 0.1rem 0.2rem 0rem 0.4rem;
-        font-size: 9px;
+        font-size: 8px;
     }
     .perf-pill{
         font-size: 0.67rem;

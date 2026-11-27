@@ -12,16 +12,8 @@ function esc(str) {
 const ScrimCard = {
   render(scrim) {
     const d = new Date(scrim.dateUtc);
-    const mxTime = d.toLocaleTimeString('es-MX', { 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      timeZone: 'America/Mexico_City' 
-    });
-    const coTime = d.toLocaleTimeString('es-CO', { 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      timeZone: 'America/Bogota' 
-    });
+    const mxTime = fmt12h(d, 'America/Mexico_City'); // "04:00 pm"
+    const coTime = fmt12h(d, 'America/Bogota');      // "05:00 pm"
     
     const squad = scrim.squad || State.squad;
     const dateBgClass = squad === 'GIRLS' ? 'scrim-date-bg-girls' : 
@@ -133,5 +125,19 @@ const ScrimCard = {
     return scrims.map(scrim => this.render(scrim)).join('');
   }
 };
+function fmt12h(date, timeZone) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  }).formatToParts(date);
 
+  const get = (t) => parts.find(p => p.type === t)?.value || '';
+  const hh = get('hour').padStart(2, '0');
+  const mm = get('minute').padStart(2, '0');
+  const raw = get('dayPeriod').toLowerCase();
+  const ampm = raw.includes('p') ? 'pm' : 'am';
+  return `${hh}:${mm} ${ampm}`;
+}
 export default ScrimCard;

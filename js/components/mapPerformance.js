@@ -35,14 +35,28 @@ const MapPerformance = (() => {
 
   function fmtDateLong(d) {
     const date = new Date(d);
-    const dateStr = date.toLocaleDateString('es', { day: '2-digit', month: 'short', year: 'numeric' });
-    const time = date.toLocaleTimeString('es', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      hour12: true,
+    const dateStr = date.toLocaleDateString('es', {
+      day: '2-digit', month: 'short', year: 'numeric',
       timeZone: 'America/Mexico_City'
     });
-    return `${dateStr} · ${time}`;
+    const time = fmt12h(date, 'America/Mexico_City');
+    return `${dateStr} - ${time}`;
+  }
+
+  function fmt12h(date, timeZone) {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).formatToParts(date);
+
+    const get = (t) => parts.find(p => p.type === t)?.value || '';
+    const hh = get('hour').padStart(2, '0');
+    const mm = get('minute').padStart(2, '0');
+    const raw = get('dayPeriod').toLowerCase();
+    const ampm = raw.includes('p') ? 'pm' : 'am';
+    return `${hh}:${mm} ${ampm}`;
   }
 
 // Agrupar el breakdown por scrimId (CORREGIDO)

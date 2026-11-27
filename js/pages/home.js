@@ -244,20 +244,32 @@ function renderOperations(scrims, players, defaultAvatar, squad) {
       </div>
       <aside class="operation-record__mvp" aria-label="MVP de la jornada">
         <p class="operation-record__mvp-label">MVP de la jornada</p>
-        <div class="mvp-card-pro" style="background-image: url('${getMvpBgImage(squad)}')">
-          <div class="mvp-card-pro-overlay" style="background-image: url('${getMvpOverlayImage(squad)}')"></div>
-          <div class="mvp-photo-overlay">
-            ${mvpPhoto ? `<img src="${escapeHTML(mvpPhoto)}" alt="${escapeHTML(mvpName)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false">` : ''}
-            <div class="mvp-photo-placeholder" ${mvpPhoto ? 'hidden' : ''}>${escapeHTML(mvpName.charAt(0).toUpperCase())}</div>
+        <div class="mvp-card-shell">
+          <div class="mvp-card-pro" id="mvp-card-home" style="background-image: url('${getMvpBgImage(squad)}')">
+            <div class="mvp-card-pro-overlay" style="background-image: url('${getMvpOverlayImage(squad)}')"></div>
+            <div class="mvp-photo-overlay">
+              ${mvpPhoto ? `<img src="${escapeHTML(mvpPhoto)}" alt="${escapeHTML(mvpName)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false">` : ''}
+              <div class="mvp-photo-placeholder" ${mvpPhoto ? 'hidden' : ''}>${escapeHTML(mvpName.charAt(0).toUpperCase())}</div>
+            </div>
+            <div class="mvp-stats-overlay">
+              <div class="mvp-stat-num-overlay mvp-stat-elims">${value(mvpTotals.kills || summary.mvpKills || 0)}</div>
+              <div class="mvp-stat-num-overlay mvp-stat-asist">${value(mvpTotals.assists)}</div>
+              <div class="mvp-stat-num-overlay mvp-stat-dano">${value(mvpTotals.damage)}</div>
+            </div>
+            <div class="operation-record__mvp-identity">
+              <strong>${escapeHTML(mvpName)}</strong>
+            </div>
           </div>
-          <div class="mvp-stats-overlay">
-            <div class="mvp-stat-num-overlay mvp-stat-elims">${value(mvpTotals.kills || summary.mvpKills || 0)}</div>
-            <div class="mvp-stat-num-overlay mvp-stat-asist">${value(mvpTotals.assists)}</div>
-            <div class="mvp-stat-num-overlay mvp-stat-dano">${value(mvpTotals.damage)}</div>
-          </div>
-          <div class="operation-record__mvp-identity">
-            <strong>${escapeHTML(mvpName)}</strong>
-          </div>
+          <button class="mvp-download-btn mvp-download-btn--compact mvp-download-btn--inset" type="button"
+            data-mvp-download data-mvp-target="#mvp-card-home"
+            data-mvp-squad="${escapeHTML(latest.squad || squad)}" data-mvp-player="${escapeHTML(mvpName)}"
+            title="Descargar MVP en PNG" aria-label="Descargar tarjeta MVP en PNG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true">
+              <path d="M12 3v12" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M5 21h14" />
+            </svg>
+          </button>
         </div>
         <div class="operation-record__mvp-squad">UZX ${escapeHTML(latest.squad || squad)}</div>
       </aside>

@@ -85,19 +85,15 @@ const ScrimDetail = {
       if (!mvpPhoto) mvpPhoto = defaultAvatar;
 
       const d = new Date(scrim.dateUtc);
-      const mxDt = d.toLocaleString('es-MX', {
+      const dateLong = d.toLocaleDateString('es-MX', {
         timeZone: 'America/Mexico_City',
-        day: '2-digit', month: 'long', year: 'numeric',
-        hour: '2-digit', minute: '2-digit'
+        day: '2-digit', month: 'long', year: 'numeric'
       });
-      const coDt = d.toLocaleTimeString('es-CO', {
-        timeZone: 'America/Bogota',
-        hour: '2-digit', minute: '2-digit'
-      });
+      const mxTime = fmt12h(d, 'America/Mexico_City'); // "04:00 pm"
+      const coTime = fmt12h(d, 'America/Bogota');      // "05:00 pm"
 
       title.textContent = scrim.opponent || 'Sesión de práctica';
-      meta.textContent = `${mxDt} MX · ${coDt} CO`;
-
+      meta.textContent = `${dateLong} - ${mxTime} MX · ${coTime} CO`;
       body.innerHTML = renderContent(scrim, {
         mvpPhoto, mvpTotalKills, mvpTotalAssists, mvpTotalDamage,
         photoByPlayerId, defaultAvatar
@@ -153,21 +149,33 @@ function renderContent(scrim, ctx) {
     <div class="mvp-section-grid">
       <div>
         <div class="mvp-squad-label-top">UZX ${esc(s.squad || '')}</div>
-<div class="mvp-card-pro" style="background-image: url('${designImage}')">
-          <div class="mvp-card-pro-overlay" style="background-image: url('${tfImage}')"></div>
-          <div class="mvp-photo-overlay">
-            ${ctx.mvpPhoto
-              ? `<img src="${ctx.mvpPhoto}" alt="${esc(summary.mvpPlayerName || '')}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-                 <div class="mvp-photo-placeholder" style="display:none">${(summary.mvpPlayerName || '?').charAt(0)}</div>`
-              : `<div class="mvp-photo-placeholder">${(summary.mvpPlayerName || '?').charAt(0)}</div>`
-            }
+        <div class="mvp-card-shell">
+          <div class="mvp-card-pro" id="mvp-card-jornada" style="background-image: url('${designImage}')">
+            <div class="mvp-card-pro-overlay" style="background-image: url('${tfImage}')"></div>
+            <div class="mvp-photo-overlay">
+              ${ctx.mvpPhoto
+                ? `<img src="${ctx.mvpPhoto}" alt="${esc(summary.mvpPlayerName || '')}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                   <div class="mvp-photo-placeholder" style="display:none">${(summary.mvpPlayerName || '?').charAt(0)}</div>`
+                : `<div class="mvp-photo-placeholder">${(summary.mvpPlayerName || '?').charAt(0)}</div>`
+              }
+            </div>
+            <div class="mvp-name-overlay-onphoto">${esc(summary.mvpPlayerName || 'Desconocido')}</div>
+            <div class="mvp-stats-overlay">
+              <div class="mvp-stat-num-overlay mvp-stat-elims">${ctx.mvpTotalKills}</div>
+              <div class="mvp-stat-num-overlay mvp-stat-asist">${ctx.mvpTotalAssists}</div>
+              <div class="mvp-stat-num-overlay mvp-stat-dano">${ctx.mvpTotalDamage.toLocaleString()}</div>
+            </div>
           </div>
-          <div class="mvp-name-overlay-onphoto">${esc(summary.mvpPlayerName || 'Desconocido')}</div>
-          <div class="mvp-stats-overlay">
-            <div class="mvp-stat-num-overlay mvp-stat-elims">${ctx.mvpTotalKills}</div>
-            <div class="mvp-stat-num-overlay mvp-stat-asist">${ctx.mvpTotalAssists}</div>
-            <div class="mvp-stat-num-overlay mvp-stat-dano">${ctx.mvpTotalDamage.toLocaleString()}</div>
-          </div>
+          <button class="mvp-download-btn mvp-download-btn--compact mvp-download-btn--inset" type="button"
+            data-mvp-download data-mvp-target="#mvp-card-jornada"
+            data-mvp-squad="${esc(squad)}" data-mvp-player="${esc(summary.mvpPlayerName || '')}"
+            title="Descargar tarjeta MVP en PNG" aria-label="Descargar tarjeta MVP en PNG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true">
+              <path d="M12 3v12" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M5 21h14" />
+            </svg>
+          </button>
         </div>
 </div>
       <div class="sd-summary-panel">
@@ -390,7 +398,21 @@ function renderRoom(room, photoByPlayerId, defaultAvatar) {
     </div>
   `;
 }
+// Formatea una fecha a "hh:mm am/pm" (12h, sin puntos) en la zona indicada.
+function fmt12h(date, timeZone) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  }).formatToParts(date);
 
+  const get = (type) => parts.find(p => p.type === type)?.value || '';
+  const hh = get('hour').padStart(2, '0');
+  const mm = get('minute').padStart(2, '0');
+  const ampm = get('dayPeriod').toLowerCase().replace(/\./g, '');
+  return `${hh}:${mm} ${ampm}`;
+}
 function esc(str) {
   return String(str ?? '').replace(/[&<>"']/g, (c) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'

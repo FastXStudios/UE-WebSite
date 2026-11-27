@@ -1694,15 +1694,13 @@ img {
   }
 }
 /* ═══════════════════════════════════════════════
-   SCRIM DETAIL OVERLAY
-   ⚠️ ESTE BLOQUE SE PERDIÓ AL PEGAR LOS CAMBIOS NUEVOS.
-   Pégalo en tu styles.css, justo ANTES de ".sd-rooms-wrap"
-   (o en cualquier parte, pero fuera de otro bloque).
+   SCRIM DETAIL OVERLAY (RESTAURADO)
 ═════════════════════════════════════════════ */
 .scrim-detail-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -1710,7 +1708,7 @@ img {
   padding: 2rem;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.2s ease;
+  transition: opacity .2s ease, visibility .2s ease;
 }
 
 .scrim-detail-overlay.show {
@@ -1727,8 +1725,8 @@ img {
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--shadow-xl);
-  transform: scale(0.95);
-  transition: transform 0.2s ease;
+  transform: scale(.95);
+  transition: transform .2s ease;
 }
 
 .scrim-detail-overlay.show .scrim-detail-box {
@@ -1736,33 +1734,21 @@ img {
 }
 
 .scrim-detail-header {
-  padding: 1.25rem 1.5rem;  
+  padding: 1.25rem 1.5rem;
   border-bottom: 1.5px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* 🔥 COLOR DINÁMICO según el squad del overlay */
   background: var(--header-bg, var(--bg-secondary));
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
-/* 🔥 Colores por squad para el header */
-#scrim-detail-overlay[data-squad="OFICIAL"] .scrim-detail-header {
-  --header-bg: #f1f8f5;
-}
-
-#scrim-detail-overlay[data-squad="TIER"] .scrim-detail-header {
-  --header-bg: #eff6ff;
-}
-
-#scrim-detail-overlay[data-squad="GIRLS"] .scrim-detail-header {
-  --header-bg: #fdf2f8;
-}
-#scrim-detail-overlay[data-squad="GOLD"] .scrim-detail-header {
-  --header-bg: #fffbeb;
-}
+#scrim-detail-overlay[data-squad="OFICIAL"] .scrim-detail-header { --header-bg: #f1f8f5; }
+#scrim-detail-overlay[data-squad="TIER"]    .scrim-detail-header { --header-bg: #eff6ff; }
+#scrim-detail-overlay[data-squad="GIRLS"]   .scrim-detail-header { --header-bg: #fdf2f8; }
+#scrim-detail-overlay[data-squad="GOLD"]    .scrim-detail-header { --header-bg: #fffbeb; }
 
 .scrim-detail-title {
   font-family: var(--font-display);
@@ -1770,13 +1756,13 @@ img {
   font-weight: 700;
   color: var(--text-primary);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: .5px;
 }
 
 .scrim-detail-meta {
-  font-size: 0.8rem;
+  font-size: .8rem;
   color: var(--text-muted);
-  margin-top: 0.2rem;
+  margin-top: .2rem;
 }
 
 .scrim-detail-close {
@@ -1803,7 +1789,6 @@ img {
 .scrim-detail-body {
   padding: 1.5rem;
 }
-
 
 
 
@@ -2566,7 +2551,7 @@ img {
   }
 
   .section {
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
   }
 
   .players-grid {
@@ -3519,7 +3504,7 @@ img {
   transform: translateX(-50%);
   z-index: 2;
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: #ffffff;
   text-transform: uppercase;
@@ -4142,6 +4127,7 @@ body[data-page="home"] .squad-current {
   border: 1px solid transparent;
   border-radius: 0;
   cursor: pointer;
+  border-radius: 13px;
   font-size: .7rem;
   font-weight: 800;
   letter-spacing: .09em;
@@ -4982,7 +4968,7 @@ body[data-page="home"] .squad-current {
 
 .operation-record__metrics div {
   min-width: 0;
-  padding: 1rem .8rem .85rem;
+  padding: 0.4rem .1rem 0.45rem;
   border-top: 2px solid var(--active-primary);
   background: rgba(255,255,255,.035);
   text-align: center;
@@ -5196,10 +5182,11 @@ body[data-page="home"] .squad-current {
 .command-closing__mark {
   display: grid;
   place-items: center;
-  width: clamp(5rem, 10vw, 8rem);
+  width: clamp(12rem, 0vw, 0rem);
   aspect-ratio: 1;
-  border: 1px solid rgba(255,255,255,.15);
-  background: rgba(255,255,255,.035);
+  /*border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.035);*/
+  margin-bottom: -35px;
 }
 
 .command-closing__mark img {
@@ -5323,7 +5310,7 @@ body[data-page="home"] .squad-current {
   .command-hero__rule { width: 1rem; }
   .command-hero__lede { max-width: 15.5rem; font-size: .75rem; line-height: 1.55; }
   .command-hero__actions { gap: .5rem; }
-  .command-button { min-height: 2.9rem; padding: 0 .85rem; font-size: .59rem; }
+  .command-button { border-radius: 13px; min-height: 2.9rem; padding: 0 .85rem; font-size: .59rem; }
   .command-button--primary { min-width: auto; }
   .command-hero__stats { width: min(100%, 17.5rem); }
   .command-stat { padding-top: .8rem; }
@@ -5344,10 +5331,10 @@ body[data-page="home"] .squad-current {
   .command-story h2,
   .command-section-heading h2,
   .operations-deck h2,
-  .command-closing h2 { font-size: clamp(3.15rem, 15.3vw, 4.3rem); }
+  .command-closing h2 { font-size: clamp(2.15rem, 6.3vw, 4.3rem); }
   .command-story__statement { margin-top: 1.3rem; font-size: .92rem; }
-  .command-section-heading { display: block; }
-  .command-section-heading__metric { justify-items: start; margin-top: 2rem; }
+  /* .command-section-heading { display: block; }*/
+  .command-section-heading__metric { justify-items: center; margin-top: 2.26rem; }
   .command-section-heading__metric span { text-align: left; }
   .roster-field__list { grid-template-columns: 1fr 1fr; }
   .roster-unit { min-height: 19rem; }
@@ -6174,6 +6161,7 @@ body[data-page="home"] .squad-current {
   
   .mp-scrim-map-name-on-thumb {
     font-size: 0.4rem;
+    bottom: 9px;
   }
   
   .mp-scrim-table tbody td:first-child {
@@ -6993,4 +6981,211 @@ body[data-page="home"] .squad-menu img {
 
 .text-gold {
   color: #f59e0b;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   DESCARGA PNG DE LA TARJETA MVP (INICIO + JORNADAS)
+   Estilos exclusivos del botón. No alteran la tarjeta .mvp-card-pro.
+═══════════════════════════════════════════════════════════════════════ */
+.mvp-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  border-radius: 8px;
+  background: #10b981;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.28);
+  transition: background 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+}
+
+.mvp-download-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.mvp-download-btn:active {
+  transform: translateY(0);
+}
+
+.mvp-download-btn:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+.mvp-download-btn:disabled {
+  opacity: 0.7;
+  cursor: progress;
+  transform: none;
+}
+
+.mvp-download-btn svg {
+  flex: 0 0 auto;
+}
+
+.mvp-download-btn.is-loading svg {
+  animation: mvp-download-pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes mvp-download-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+/* JORNADAS: botón pequeño dentro de la tarjeta, en la esquina superior
+   derecha. Queda fuera del nodo .mvp-card-pro para que no salga en el PNG. */
+.mvp-card-shell {
+  position: relative;
+}
+
+.mvp-download-btn--inset {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  z-index: 6;
+  width: 1.85rem;
+  height: 1.85rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 7px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.32);
+}
+
+.mvp-download-btn--inset:hover {
+  transform: none;
+}
+
+/* La tarjeta de INICIO vive en una columna más ancha que la tarjeta:
+   el shell se ajusta al ancho real de la tarjeta para que el botón
+   quede dentro de ella, igual que en JORNADAS. */
+.operation-record__mvp .mvp-card-shell {
+  width: 16rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.mvp-download-btn--compact {
+  width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  border-radius: 7px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.32);
+}
+
+/* ═══════════════════════════════════════════════
+   MVP DOWNLOAD LOADING OVERLAY
+   (creado por mvpDownload.js → showMvpLoading)
+═════════════════════════════════════════════ */
+.mvp-loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  /* Fondo con gradiente (sin backdrop-filter → 60fps estables) */
+  background:
+    radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.85));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease, visibility .2s ease;
+  contain: layout paint style;
+}
+
+.mvp-loading-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mvp-loading-box {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2rem 2.25rem;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  transform: scale(.96);
+  transition: transform .2s ease;
+  will-change: transform;
+}
+
+.mvp-loading-overlay.is-visible .mvp-loading-box {
+  transform: scale(1);
+}
+
+.mvp-loading-spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--border);
+  border-top-color: var(--active-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  contain: layout paint;
+}
+
+.mvp-loading-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--text-primary);
+}
+
+.mvp-loading-sub {
+  font-size: .78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.mvp-loading-bar {
+  width: 100%;
+  height: 4px;
+  margin-top: .35rem;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.mvp-loading-bar span {
+  display: block;
+  height: 100%;
+  width: 35%;
+  background: var(--active-primary);
+  border-radius: 4px;
+  animation: mvpLoadingSlide 1.3s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+@keyframes mvpLoadingSlide {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(100%); }
+  100% { transform: translateX(280%); }
+}
+/* Centrar el loading-pulse en cualquier contenedor, en especial móvil */
+.loading-pulse {
+  grid-column: 1 / -1;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
 }

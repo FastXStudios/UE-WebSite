@@ -1,6 +1,7 @@
 // config.js
 const CONFIG = {
-    API_BASE: 'https://ueback.onrender.com/api',
+    //API_BASE: 'https://ueback.onrender.com/api',
+    API_BASE: 'http://localhost:5000/api',
     CACHE_TTL: 5 * 60 * 1000, // 5 minutos
     MAPS: ['BERMUDA', 'PURGATORIO', 'KALAHARI', 'NEXTERRA'],
     SQUAD_LOGOS: {
